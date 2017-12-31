@@ -1,0 +1,76 @@
+<!--index.wxml-->
+<view class="container">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='panel'>
+      <view class='form-item'>
+        <label>
+          <text class='form-label'>姓名</text>
+          <input class='form-control' placeholder="请输入姓名"></input>
+        </label>
+      </view>
+      <view class='form-item'>
+        <label>
+          <text class='form-label'>身份证</text>
+          <input class='form-control' placeholder="请输入身份证号码"></input>
+        </label>
+      </view>
+      <view class='form-item'>
+        <label>
+          <text class='form-label'>工作单位</text>
+          <input class='form-control' placeholder="请填写工作单位信息"></input>
+        </label>
+      </view>
+      <view class='form-item '>
+        <label class='no-bottom-border'>
+          <text class='form-label'>联系方式</text>
+          <input class='form-control' placeholder="请输入手机号码"></input>
+        </label>
+      </view>
+    </view>
+    <view class='panel'>
+      <view class='form-item'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class='form-picker-wrap'>
+            <text class='form-label'>房产信息</text>
+            <text class='form-control'>{{array[index]}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class='upload-container'>
+        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item upload-item-add'></view>
+      </view>
+    </view>
+    <view class='panel'>
+      <view class='form-item'>
+         <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class='form-picker-wrap'>
+            <text class='form-label'>保单信息</text>
+            <text class='form-control'>{{array[index]}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class='upload-container'>
+        <view class='upload-item'>
+        <image  mode="aspectFill" src="{{testImg}}"></image>
+        </view>
+        <view class='upload-item upload-item-add'></view>
+      </view>
+    </view>
+    <view class='panel'>
+      <view class='form-item'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view class='form-picker-wrap'>
+            <text class='form-label'>车</text>
+            <text class='form-control'>{{array[index]}}</text>
+          </view>
+        </picker>
+      </view>
+      <view class='upload-container'>
+        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item upload-item-add'></view>
+      </view>
+    </view>
+    <button class='submit-btn' type="primary" loading="{{false}}" bindtap="primary"> 提交 </button>
+  </form>
+</view>
