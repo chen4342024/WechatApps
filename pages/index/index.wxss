@@ -44,14 +44,16 @@
   display: flex;
   padding: 30rpx 0;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .upload-item {
   display: block;
-  width: 220rpx;
+  width: 200rpx;
   height: 220rpx;
   border: 1px solid #dcdee3;
   margin-right: 30rpx;
+  margin-bottom: 30rpx;
   position: relative;
   overflow: hidden;
 }

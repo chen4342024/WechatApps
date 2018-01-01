@@ -1,0 +1,80 @@
+@import '../../wxss/font.wxss';
+
+.container {
+  background: #f0f0f0;
+}
+
+.search-bar {
+  background: #fff;
+  padding: 20rpx;
+  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
+  height: 100rpx;
+}
+
+.search-label {
+  display: flex;
+  border: 1rpx solid #ccc;
+  font-size: 28rpx;
+  background: #fff;
+  padding-left: 10rpx;
+}
+
+.search-icon {
+  line-height: 50rpx;
+}
+
+.search-bar-input {
+  padding: 0 30rpx 0 10px;
+}
+
+.filter-bar {
+  background: #fff;
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: 99rpx;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
+}
+
+.filter-item {
+  flex: 1;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.search-result {
+  background: #fff;
+  margin-top: 200rpx;
+}
+
+.customer-item {
+  height: 120rpx;
+  line-height: 120rpx;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  position: relative;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.customer-name {
+  flex: 1;
+}
+
+.customer-status {
+  flex-basis: 130rpx;
+}
+
+.customer-icon {
+  position: absolute;
+  right: 30rpx;
+}

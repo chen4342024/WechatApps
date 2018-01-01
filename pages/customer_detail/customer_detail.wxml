@@ -1,0 +1,60 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='panel follow-info'>
+    <view class='info-item no-bottom-border'>
+      <text class='item-label'>跟进情况</text>
+      <text class='item-value'>已跟进</text>
+    </view>
+  </view>
+  <view class='panel'>
+    <view class='info-item'>
+      <text class='item-label'>姓名</text>
+      <text class='item-value'>XXXXX</text>
+    </view>
+    <view class='info-item'>
+      <text class='item-label'>身份证号码</text>
+      <text class='item-value'>445202199099999999</text>
+    </view>
+    <view class='info-item'>
+      <text class='item-label'>工作单位</text>
+      <text class='item-value'>腾讯网络科技有限公司</text>
+    </view>
+    <view class='info-item no-bottom-border'>
+      <text class='item-label'>联系方式</text>
+      <text class='item-value'>13750039997</text>
+    </view>
+  </view>
+  <view class='panel'>
+    <view class='info-item '>
+      <text class='item-label'>房产信息</text>
+      <text class='item-value'>供方1~3个月</text>
+    </view>
+    <view class='info-image-list'>
+      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+        <image mode="aspectFill" src="{{item}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class='panel'>
+    <view class='info-item '>
+      <text class='item-label'>车辆信息</text>
+      <text class='item-value'>供车1~3个月</text>
+    </view>
+    <view class='info-image-list'>
+      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+        <image mode="aspectFill" src="{{item}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class='panel'>
+    <view class='info-item '>
+      <text class='item-label'>保单</text>
+      <text class='item-value'>保单供断</text>
+    </view>
+    <view class='info-image-list'>
+      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+        <image mode="aspectFill" src="{{item}}"></image>
+      </view>
+    </view>
+  </view>
+</view>

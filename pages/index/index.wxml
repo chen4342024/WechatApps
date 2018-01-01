@@ -68,6 +68,9 @@
       </view>
       <view class='upload-container'>
         <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
         <view class='upload-item upload-item-add'></view>
       </view>
     </view>
