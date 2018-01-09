@@ -37,13 +37,15 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
-        <view class='upload-item upload-item-add'></view>
+        <view class='upload-item' wx:for="{{pics}}" data-item="{{item}}">
+          <image mode="aspectFill" src="{{item}}"></image>
+        </view>
+        <view class='upload-item upload-item-add' bindtap='uploadImage'></view>
       </view>
     </view>
     <view class='panel'>
       <view class='form-item'>
-         <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
           <view class='form-picker-wrap'>
             <text class='form-label'>保单信息</text>
             <text class='form-control'>{{array[index]}}</text>
@@ -52,7 +54,7 @@
       </view>
       <view class='upload-container'>
         <view class='upload-item'>
-        <image  mode="aspectFill" src="{{testImg}}"></image>
+          <image mode="aspectFill" src="{{testImg}}"></image>
         </view>
         <view class='upload-item upload-item-add'></view>
       </view>
@@ -67,10 +69,18 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
-        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
-        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
-        <view class='upload-item'><image  mode="aspectFill" src="{{testImg}}"></image></view>
+        <view class='upload-item'>
+          <image mode="aspectFill" src="{{testImg}}"></image>
+        </view>
+        <view class='upload-item'>
+          <image mode="aspectFill" src="{{testImg}}"></image>
+        </view>
+        <view class='upload-item'>
+          <image mode="aspectFill" src="{{testImg}}"></image>
+        </view>
+        <view class='upload-item'>
+          <image mode="aspectFill" src="{{testImg}}"></image>
+        </view>
         <view class='upload-item upload-item-add'></view>
       </view>
     </view>

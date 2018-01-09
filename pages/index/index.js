@@ -16,10 +16,11 @@ Page({
       { id: 1, unique: 'unique_1' },
       { id: 0, unique: 'unique_0' },
     ],
-    array: ['请选择','美国', '中国', '巴西', '日本'],
+    array: ['请选择', '美国', '中国', '巴西', '日本'],
+    pics: [],
     index: 0,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    testImg:"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514490091890&di=5f459c8428321e17cc2f9bb00d72b1a2&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D3191248617%2C1635470861%26fm%3D214%26gp%3D0.jpg"
+    testImg: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514490091890&di=5f459c8428321e17cc2f9bb00d72b1a2&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D3191248617%2C1635470861%26fm%3D214%26gp%3D0.jpg"
   },
   //事件处理函数
   bindViewTap: function () {
@@ -27,6 +28,39 @@ Page({
       url: '../logs/logs'
     })
   },
+  uploadImage: function () {
+    var that = this, pics = this.data.pics;
+    wx.chooseImage({
+      count: 9 - pics.length, // 最多可以选择的图片张数，默认9
+      sizeType: ['original', 'compressed'], // original 原图，compressed 压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
+      success: function (res) {
+        var imgsrc = res.tempFilePaths;
+        pics = pics.concat(imgsrc);
+        that.setData({
+          pics: pics
+        });
+        that.uploadimg();
+      },
+    })
+  },
+
+  uploadimg: function () {//这里触发图片上传的方法
+    var pics = this.data.pics;
+    wx.uploadFile({
+      url: 'http://127.0.0.1:7002/api/v1/upload',//这里是你图片上传的接口
+      filePath: pics[0],//这里是选取的图片的地址数组
+      name: 'file',
+      formData: {
+        'user': 'test'
+      },
+      success: function (res) {
+        var data = res.data
+        //do something
+      }
+    });
+  },
+
   onReady: function () {
     console.log("index page onReady");
   },
