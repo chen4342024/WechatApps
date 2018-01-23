@@ -45,17 +45,19 @@
   padding: 30rpx 0;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: -30rpx;
 }
 
 .upload-item {
   display: block;
-  width: 200rpx;
-  height: 220rpx;
+  width: 210rpx;
+  height: 210rpx;
   border: 1px solid #dcdee3;
-  margin-right: 30rpx;
+  margin-left: 30rpx;
   margin-bottom: 30rpx;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; 
+  box-sizing:border-box;
 }
 
 .upload-item > image{

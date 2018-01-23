@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='logo'>
+    <image src='../../../images/logo.jpg'></image>
+  </view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class='form-item'>
+      <label>
+        <text class='iconfont icon-yonghu'></text>
+        <input class='form-control' type='text' value='{{userName}}' bindinput='bindUserNameInput' placeholder="请输入账号"></input>
+      </label>
+    </view>
+    <view class='form-item'>
+      <label>
+        <text class='iconfont icon-mima '></text>
+        <input class='form-control' type='password' value='{{password}}' bindinput='bindPasswordInput' placeholder="请输入密码"></input>
+      </label>
+    </view>
+    <button class='submit-btn' loading="{{false}}" bindtap="onSubmitLogin">登陆</button>
+  </form>
+</view>

@@ -15,6 +15,20 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+
+function showError(msg, callback) {
+  wx.showModal({
+    title: '错误提示',
+    content: msg,
+    showCancel: false,
+    confirmText: '我知道了',
+    confirmColor: '#ff784b',
+    success: callback
+  });
+}
+
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  showError: showError
 }
