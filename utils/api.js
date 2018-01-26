@@ -60,7 +60,7 @@ function uploadFile(data, successCB = noop, errorCB = noop) {
   //图片上传的接口
   const url = origin + '/api/v1/upload';
   const { filePath } = data;
-  wx.uploadFile(authHeader({
+  return wx.uploadFile(authHeader({
     url: url,
     filePath: filePath,//这里是选取的图片的地址数组
     name: 'file',

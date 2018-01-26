@@ -27,8 +27,20 @@ function showError(msg, callback) {
   });
 }
 
+function showAlert(msg, callback) {
+  wx.showModal({
+    title: '温馨提示',
+    content: msg,
+    showCancel: false,
+    confirmText: '确定',
+    confirmColor: '#1AAD19',
+    success: callback
+  });
+}
+
 
 module.exports = {
   formatTime: formatTime,
-  showError: showError
+  showError: showError,
+  showAlert: showAlert
 }

@@ -1,0 +1,17 @@
+<view class='upload-item'>
+  <view wx:if="{{canDelete}}" class='delete-upload iconfont icon-close'></view>
+  <image mode="aspectFill" src="{{imgSrc}}"></image>
+
+  <view class='mask' wx:if="{{status == 'uploading'}}">
+    <view>
+      <text class="upload-text">上传中  {{percent}}%</text>
+    </view>
+    <progress class='upload-progress' stroke-width="3" percent="{{percent}}"></progress>
+  </view>
+
+  <view class='mask' wx:if="{{status == 'fail'}}">
+    <icon type='warn' size='20' color='#fff'></icon>
+    <text class="upload-fail">上传失败</text>
+  </view>
+  
+</view>
