@@ -5,7 +5,7 @@ const api = require('../../utils/api.js');
 const util = require('../../utils/util.js');
 const globalData = require('../../utils/global.js');
 const validateUtil = require('../../utils/validate.js')
-
+const UploadItem = require('../../components/UploadItem/item.js');
 
 let defaultData = {
   name: '',
@@ -87,16 +87,25 @@ Page({
     })
   },
 
+  bindItemDelete: function (e) {
+    console.log(e);
+    let container = e.currentTarget.dataset.container;
+    let itemList = this.data[container] || [];
+    let data = e.detail.data;
+    itemList = itemList.filter((currentValue, index, arr) => {
+      return currentValue.key !== data.uploadItem.key;
+    });
+    this.setData({
+      [container]: itemList
+    });
+  },
+
   uploadimg: function (container = '', imgSrcList = []) {//这里触发图片上传的方法
 
     let itemList = this.data[container] || [];
     for (let imgSrc of imgSrcList) {
-      let uploadItem = {
-        canDelete: false,
-        imgSrc: imgSrc,
-        percent: '0',
-        status: 'none'
-      }
+
+      let uploadItem = new UploadItem({ imgSrc: imgSrc });
       itemList.push(uploadItem);
       this.setData({
         [container]: itemList
@@ -105,14 +114,14 @@ Page({
         filePath: imgSrc
       }
       let uploadTask = api.uploadFile(data, (res) => {
-        var data = res.data;
+        var data = JSON.parse(res.data);
         if (res.statusCode === 200) {
-          uploadItem.status = 'done';
+          uploadItem.done(data.hash);
           this.setData({
             [container]: itemList
           });
         } else {
-          uploadItem.status = 'error';
+          uploadItem.fail();
           this.setData({
             [container]: itemList
           });
@@ -121,8 +130,7 @@ Page({
       });
 
       uploadTask.onProgressUpdate((res) => {
-        uploadItem.percent = res.progress;
-        uploadItem.status = 'uploading';
+        uploadItem.uploading(res.progress)
         this.setData({
           [container]: itemList
         });
@@ -131,9 +139,6 @@ Page({
         console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
       });
     }
-
-
-
   },
 
   bindPickerChange: function (e) {
@@ -185,8 +190,6 @@ Page({
     });
   },
 
-
-
   bindInputBlur: function (e) {
     let { validateConfig } = this.data;
     let value = e.detail.value;
@@ -222,6 +225,12 @@ Page({
     ];
   },
 
+  getUploadItemHashList(itemList = []) {
+    return itemList.map((item) => {
+      return item.hash;
+    })
+  },
+
   onSubmit: function (e) {
     if (this.validate()) {
       let data = {
@@ -232,9 +241,9 @@ Page({
         house_loan_period: this.data.house_loan_period,
         car_loan_period: this.data.car_loan_period,
         policy_loan_period: this.data.policy_loan_period,
-        house_pictures: this.data.house_pictures,
-        car_pictures: this.data.car_pictures,
-        policy_pictures: this.data.policy_pictures
+        house_pictures: this.getUploadItemHashList(this.data.house_pictures),
+        car_pictures: this.getUploadItemHashList(this.data.car_pictures),
+        policy_pictures: this.getUploadItemHashList(this.data.policy_pictures)
       };
       let self = this;
       api.postCustomer(data, function (res) {

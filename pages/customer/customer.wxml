@@ -8,21 +8,21 @@
   </view>
   <view class='filter-bar'>
     <view class='filter-item'>
-      <picker mode="selector" value='{{houseTypesIndex}}' range='{{houseTypes}}' range-key="text" bindchange='houseTypeChange'>
+      <picker mode="selector" value='{{houseTypesIndex}}' data-range="houseTypes" data-name="house_loan_period" range='{{houseTypes}}' range-key="text" bindchange='bindPickerChange'>
         <view class='form-picker-wrap'>
           <text class=''>{{houseTypes[houseTypesIndex].label || houseTypes[houseTypesIndex].text }}<text class='iconfont icon-arrow-down'></text></text>
         </view>
       </picker>
     </view>
     <view class='filter-item'>
-      <picker mode="selector" value='' range='{{carTypes}}' range-key="text" bindchange='carTypeChange'>
+      <picker mode="selector" value='{{carTypesIndex}}' data-range="carTypes" range='{{carTypes}}' data-name="car_loan_period" range-key="text" bindchange='bindPickerChange'>
         <view class='form-picker-wrap'>
           <text class=''>{{carTypes[carTypesIndex].label || carTypes[carTypesIndex].text }}<text class='iconfont icon-arrow-down'></text></text>
         </view>
       </picker>
     </view>
     <view class='filter-item'>
-      <picker mode="selector" value='' range='{{policyTypes}}' range-key="text" bindchange='policyTypeChange'>
+      <picker mode="selector" value='{{policyTypesIndex}}' range='{{policyTypes}}' data-range="policyTypes" data-name="policy_loan_period" range-key="text" bindchange='bindPickerChange'>
         <view class='form-picker-wrap'>
           <text class=''>{{policyTypes[policyTypesIndex].label || policyTypes[policyTypesIndex].text }}<text class='iconfont icon-arrow-down'></text></text>
         </view>
@@ -30,7 +30,7 @@
     </view>
   </view>
   <view class='search-result'>
-    <navigator url="/pages/customer_detail/customer_detail?title={{item.id}}" hover-class="navigator-hover" wx:for="{{customerList}}">
+    <navigator url="/pages/customer_detail/customer_detail?title={{item.id}}"  hover-class="navigator-hover" wx:for="{{customerList}}">
       <view class="customer-item">
         <text class='customer-name'>{{item.name}}</text>
         <text class='customer-status'>{{item.status}}</text>

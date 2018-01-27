@@ -1,17 +1,16 @@
 <view class='upload-item'>
-  <view wx:if="{{canDelete}}" class='delete-upload iconfont icon-close'></view>
-  <image mode="aspectFill" src="{{imgSrc}}"></image>
+  <view wx:if="{{uploadItem.canDelete}}" bindtap="bindDelete" class='delete-upload iconfont icon-close'></view>
+  <image mode="aspectFill" src="{{uploadItem.imgSrc}}"></image>
 
-  <view class='mask' wx:if="{{status == 'uploading'}}">
+  <view class='mask' wx:if="{{uploadItem.status == 'uploading'}}">
     <view>
-      <text class="upload-text">上传中  {{percent}}%</text>
+      <text class="upload-text">上传中  {{uploadItem.percent}}%</text>
     </view>
-    <progress class='upload-progress' stroke-width="3" percent="{{percent}}"></progress>
+    <progress class='upload-progress' stroke-width="3" percent="{{uploadItem.percent}}"></progress>
   </view>
 
-  <view class='mask' wx:if="{{status == 'fail'}}">
+  <view class='mask' wx:if="{{uploadItem.status == 'fail'}}">
     <icon type='warn' size='20' color='#fff'></icon>
     <text class="upload-fail">上传失败</text>
   </view>
-  
 </view>

@@ -45,8 +45,7 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <upload-item wx:for="{{house_pictures}}"  data-item="{{item}}" imgSrc="{{item.imgSrc}}" canDelete="{{item.canDelete}}"
-          percent="{{item.percent}}" status="{{item.status}}">
+        <upload-item wx:for="{{house_pictures}}" data-container='house_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete">
         </upload-item>
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='house_pictures' ></view>
       </view>
@@ -61,10 +60,9 @@
         </picker>
       </view> 
       <view class='upload-container'>
-        <view class='upload-item'>
-          <image mode="aspectFill" src="{{testImg}}"></image>
-        </view>
-        <view class='upload-item upload-item-add'></view>
+        <upload-item wx:for="{{policy_pictures}}" data-container='policy_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete">
+        </upload-item>
+        <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='policy_pictures' ></view>
       </view>
     </view>
     <view class='panel'>
@@ -78,19 +76,9 @@
         </picker>
       </view> 
       <view class='upload-container'>
-        <view class='upload-item'>
-          <image mode="aspectFill" src="{{testImg}}"></image>
-        </view>
-        <view class='upload-item'>
-          <image mode="aspectFill" src="{{testImg}}"></image>
-        </view>
-        <view class='upload-item'>
-          <image mode="aspectFill" src="{{testImg}}"></image>
-        </view>
-        <view class='upload-item'>
-          <image mode="aspectFill" src="{{testImg}}"></image>
-        </view>
-        <view class='upload-item upload-item-add'></view>
+        <upload-item wx:for="{{car_pictures}}" data-container='car_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete">
+        </upload-item>
+        <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='car_pictures' ></view>
       </view>
     </view>
     <button class='submit-btn' type="primary" loading="{{false}}" bindtap="onSubmit"> 提交 </button>
