@@ -36,9 +36,16 @@ const followStatus = [
   { code: 5, text: "完成签约" },
 ];
 
+function findByCode(code, data) {
+  return data.filter((value) => {
+    return value.code == code;
+  });
+}
+
 module.exports = {
   houseInfoEnum,
   carTypeEnum,
   policyTypesEnum,
-  followStatus
+  followStatus,
+  findByCode: findByCode
 };

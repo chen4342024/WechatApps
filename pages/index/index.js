@@ -7,6 +7,7 @@ const globalData = require('../../utils/global.js');
 const validateUtil = require('../../utils/validate.js')
 const UploadItem = require('../../components/UploadItem/item.js');
 
+// 默认的数据
 let defaultData = {
   name: '',
   card_number: '',
@@ -53,10 +54,9 @@ Page({
     validateMessage: {},
     validateStatus: {},
 
-    pics: ["https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514490091890&di=5f459c8428321e17cc2f9bb00d72b1a2&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D3191248617%2C1635470861%26fm%3D214%26gp%3D0.jpg"],
-    testImg: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514490091890&di=5f459c8428321e17cc2f9bb00d72b1a2&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D3191248617%2C1635470861%26fm%3D214%26gp%3D0.jpg"
   },
 
+  // 绑定input改变事件
   bindInputChange: function (e) {
     let name = e.currentTarget.dataset.name;
     this.setData({
@@ -71,12 +71,13 @@ Page({
     })
   },
 
+  //上传图片
   uploadImage: function (e) {
     let container = e.currentTarget.dataset.container;
-
-    var that = this, pics = this.data.pics;
+    let itemList = this.data[container] || [];
+    var that = this;
     wx.chooseImage({
-      count: 9 - pics.length, // 最多可以选择的图片张数，默认9
+      count: 9 - itemList.length, // 最多可以选择的图片张数，默认9
       sizeType: ['original', 'compressed'], // original 原图，compressed 压缩图，默认二者都有
       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
       success: function (res) {
@@ -86,6 +87,7 @@ Page({
     })
   },
 
+  //绑定图片删除
   bindItemDelete: function (e) {
     console.log(e);
     let container = e.currentTarget.dataset.container;
@@ -99,6 +101,7 @@ Page({
     });
   },
 
+  //上传图片
   uploadimg: function (container = '', imgSrcList = []) {//这里触发图片上传的方法
 
     let itemList = this.data[container] || [];
@@ -140,6 +143,22 @@ Page({
     }
   },
 
+  // 图片预览
+  previewImage: function (e) {
+    let dataSet = e.currentTarget.dataset;
+    let container = dataSet.container;
+    let itemList = this.data[container] || [];
+    let item = dataSet.item;
+    let urls = itemList.map((uploadItem) => {
+      return uploadItem.imgSrc;
+    });
+    wx.previewImage({
+      current: item.imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    });
+  },
+
+  //绑定picker改变事件
   bindPickerChange: function (e) {
     let rangeStr = e.currentTarget.dataset.range;
     let name = e.currentTarget.dataset.name;
@@ -159,6 +178,7 @@ Page({
     this.initValidate();
   },
 
+  //验证表单
   validate: function () {
     let allPass = true;
     let { validateConfig } = this.data;
@@ -174,6 +194,7 @@ Page({
     return allPass;
   },
 
+  //处理表单验证的结果
   handleValidateResult: function (name, result) {
     let { validateMessage, validateStatus } = this.data;
     if (result.validate) {
@@ -189,6 +210,7 @@ Page({
     });
   },
 
+  // 绑定input失去焦点
   bindInputBlur: function (e) {
     let { validateConfig } = this.data;
     let value = e.detail.value;
@@ -198,6 +220,7 @@ Page({
     this.handleValidateResult(name, result);
   },
 
+  // 绑定input聚焦
   bindInputFocus: function (e) {
     let value = e.detail.value;
     let name = e.currentTarget.dataset.name;
@@ -208,6 +231,7 @@ Page({
     });
   },
 
+  // 初始化表单的验证规则
   initValidate: function () {
     let { validateConfig } = this.data;
     validateConfig['name'] = [
@@ -224,32 +248,25 @@ Page({
     ];
   },
 
+  // 获取图片item的hash值以便提交
   getUploadItemHashList(itemList = []) {
     return itemList.map((item) => {
       return item.hash;
     })
   },
 
-
+  //滚动到第一个错误的位置
   scrollToFirstError: function () {
     let { validateStatus, validateConfig } = this.data;
     for (let key of Object.keys(validateConfig)) {
       if (validateStatus[key] && validateStatus[key] === 'error') {
-        this.scrollTo(`.J-form-${key}`);
+        util.scrollTo(`.J-form-${key}`);
         return;
       }
     }
   },
 
-  scrollTo: function (select) {
-    util.getElementScollOffset(select, (scrollTop) => {
-      wx.pageScrollTo({
-        scrollTop: scrollTop,
-        duration: 300
-      })
-    });
-  },
-
+  // 提交表单
   onSubmit: function (e) {
     if (!this.validate()) {
       this.scrollToFirstError();
@@ -268,7 +285,6 @@ Page({
       policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
       status: 1
     };
-    return;
     let self = this;
     api.postCustomer(data, function (res) {
       console.log(res);

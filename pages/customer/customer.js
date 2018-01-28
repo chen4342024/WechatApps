@@ -38,6 +38,20 @@ Page({
     });
   },
 
+  mapCustomerList: function (customerList) {
+    return customerList.map((customer)=>{
+      let { followStatus, houseTypes, policyTypes, carTypes } = this.data;
+      let getText = function (code, data) {
+        let filterData = globalData.findByCode(code, data);
+        return filterData[0] ? filterData[0].text : '';
+      }
+      let viewCustomer = {
+        statusText: getText(customer.status, followStatus)
+      }
+      return { ...customer, ...viewCustomer }
+    });
+  },
+
   //事件处理函数
   bindInputChange: function (e) {
     let name = e.currentTarget.dataset.name;
@@ -102,7 +116,7 @@ Page({
       if (res.status === 0) {
         let pagination = res.data.pagination;
         this.setData({
-          customerList: [...this.data.customerList, ...res.data.data],
+          customerList: this.mapCustomerList([...this.data.customerList, ...res.data.data]),
           currentPage: pagination.currentPage + 1,
           hasNext: (pagination.currentPage * pagination.pageSize < pagination.total)
         });

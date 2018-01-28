@@ -57,10 +57,22 @@ function getElementScollOffset(select, callback = noop) {
   })
 }
 
+// 滚动到对应的元素
+function scrollTo(select) {
+  getElementScollOffset(select, (scrollTop) => {
+    wx.pageScrollTo({
+      scrollTop: scrollTop,
+      duration: 300
+    })
+  });
+}
+
+
 
 module.exports = {
   formatTime: formatTime,
   showError: showError,
   showAlert: showAlert,
-  getElementScollOffset: getElementScollOffset
+  getElementScollOffset,
+  scrollTo
 }

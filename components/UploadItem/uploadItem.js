@@ -14,7 +14,11 @@ Component({
     // 这里是一个自定义方法
     bindDelete: function (e) {
       let data = this.data;
-      this.triggerEvent('onItemDelete', { data }, { bubbles: true })
+      this.triggerEvent('onItemDelete', { data }, { bubbles: false })
+    },
+    bindPreview: function (e) {
+      let data = this.data;
+      this.triggerEvent('itempreview', { data }, { bubbles: true });
     }
   }
 })

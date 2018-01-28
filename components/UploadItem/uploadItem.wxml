@@ -1,6 +1,6 @@
-<view class='upload-item'>
+<view class='upload-item' >
   <view wx:if="{{uploadItem.canDelete}}" bindtap="bindDelete" class='delete-upload iconfont icon-close'></view>
-  <image mode="aspectFill" src="{{uploadItem.imgSrc}}"></image>
+  <image mode="aspectFill" src="{{uploadItem.imgSrc}}" bindtap='bindPreview'></image>
 
   <view class='mask' wx:if="{{uploadItem.status == 'uploading'}}">
     <view>

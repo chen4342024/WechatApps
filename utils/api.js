@@ -65,6 +65,16 @@ function getCustomer(data, successCB = noop, errorCB = noop) {
   }));
 }
 
+function getCustomerById(id, successCB = noop, errorCB = noop) {
+  const url = origin + '/api/v1/customers/' + id;
+  return request(authHeader({
+    url: url,
+    method: 'GET',
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
 
 function uploadFile(data, successCB = noop, errorCB = noop) {
   //图片上传的接口
@@ -110,10 +120,16 @@ function authHeader(data = {}) {
 
 
 
+function getPictureUrl(hash) {
+  return `${origin}/api/v1/pictures/${hash}`;
+}
+
 module.exports = {
   accountLogin: accountLogin,
   errorHandler: errorHandler,
   postCustomer: postCustomer,
   getCustomer: getCustomer,
-  uploadFile: uploadFile
+  uploadFile: uploadFile,
+  getCustomerById: getCustomerById,
+  getPictureUrl: getPictureUrl
 }

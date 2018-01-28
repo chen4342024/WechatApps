@@ -3,34 +3,35 @@
   <view class='panel follow-info'>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>跟进情况</text>
-      <text class='item-value'>已跟进</text>
+      <text class='item-value'>{{customer.statusText}}</text>
     </view>
+
   </view>
   <view class='panel'>
     <view class='info-item'>
       <text class='item-label'>姓名</text>
-      <text class='item-value'>XXXXX</text>
+      <text class='item-value'>{{customer.name}}</text>
     </view>
     <view class='info-item'>
       <text class='item-label'>身份证号码</text>
-      <text class='item-value'>445202199099999999</text>
+      <text class='item-value'>{{customer.card_number}}</text>
     </view>
     <view class='info-item'>
       <text class='item-label'>工作单位</text>
-      <text class='item-value'>腾讯网络科技有限公司</text>
+      <text class='item-value'>{{customer.address}}</text>
     </view>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>联系方式</text>
-      <text class='item-value'>13750039997</text>
+      <text class='item-value'>{{customer.phone}}</text>
     </view>
   </view>
   <view class='panel'>
     <view class='info-item '>
       <text class='item-label'>房产信息</text>
-      <text class='item-value'>供方1~3个月</text>
+      <text class='item-value'>{{customer.houceLoanPeriodText}}</text>
     </view>
     <view class='info-image-list'>
-      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+      <view class='preview-item' wx:for="{{customer.housePicturesUrl}}" data-pictures="{{customer.housePicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
@@ -38,10 +39,10 @@
   <view class='panel'>
     <view class='info-item '>
       <text class='item-label'>车辆信息</text>
-      <text class='item-value'>供车1~3个月</text>
+      <text class='item-value'>{{customer.carLoanPeriodText}}</text>
     </view>
     <view class='info-image-list'>
-      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+      <view class='preview-item' wx:for="{{customer.carPicturesUrl}}" data-pictures="{{customer.carPicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
@@ -49,10 +50,10 @@
   <view class='panel'>
     <view class='info-item '>
       <text class='item-label'>保单</text>
-      <text class='item-value'>保单供断</text>
+      <text class='item-value'>{{customer.policyLoanPeriodText}}</text>
     </view>
     <view class='info-image-list'>
-      <view class='preview-item' wx:for="{{testImgs}}" data-item="{{item}}" bindtap='previewImage'>
+      <view class='preview-item' wx:for="{{customer.policyPicturesUrl}}" data-pictures="{{customer.policyPicturesUrl}}" data-item="{{item}}" bindtap='previewImage' >
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
