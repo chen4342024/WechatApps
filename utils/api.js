@@ -45,10 +45,20 @@ function request(data) {
 
 function postCustomer(data, successCB = noop, errorCB = noop) {
   const url = origin + '/api/v1/customers';
-  let { userName, password } = data;
   return request(authHeader({
-    url: url, //仅为示例，并非真实的接口地址
+    url: url,
     method: 'POST',
+    data: data,
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
+function getCustomer(data, successCB = noop, errorCB = noop) {
+  const url = origin + '/api/v1/customers';
+  return request(authHeader({
+    url: url,
+    method: 'GET',
     data: data,
     success: successCB,
     fail: errorCB
@@ -104,5 +114,6 @@ module.exports = {
   accountLogin: accountLogin,
   errorHandler: errorHandler,
   postCustomer: postCustomer,
+  getCustomer: getCustomer,
   uploadFile: uploadFile
 }

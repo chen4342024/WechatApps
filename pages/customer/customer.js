@@ -2,12 +2,15 @@
 //获取应用实例
 const app = getApp();
 const globalData = require('../../utils/global.js');
+const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
 
 Page({
   data: {
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
+    search: '',
 
     houseTypes: globalData.houseInfoEnum,
     houseTypesIndex: 0,
@@ -18,21 +21,43 @@ Page({
     carTypes: globalData.carTypeEnum,
     carTypesIndex: 0,
 
-    customerList: [
-      { id: '1', name: 'andy chen', status: '跟进中' },
-      { id: '2', name: 'andy chen', status: '已约见' },
-      { id: '3', name: 'andy chen', status: '洽谈中' },
-      { id: '4', name: 'andy chen', status: '跟进中' },
-      { id: '5', name: 'andy chen', status: '已约见' },
-      { id: '6', name: 'andy chen', status: '已约见' },
-      { id: '7', name: 'andy chen', status: '洽谈中' },
-      { id: '8', name: 'andy chen', status: '跟进中' },
-      { id: '9', name: 'andy chen', status: '跟进中' }
-    ]
+    followStatus: globalData.followStatus,
+
+    customerList: [],
+    currentPage: 0,
+    hasNext: true,
+    loadingMore: false
   },
+
+  resetSearchResult: function () {
+    this.setData({
+      customerList: [],
+      currentPage: 0,
+      hasNext: true,
+      loadingMore: false
+    });
+  },
+
   //事件处理函数
-  bindchange: function (e) {
-    console.log(e);
+  bindInputChange: function (e) {
+    let name = e.currentTarget.dataset.name;
+    this.setData({
+      [name]: e.detail.value
+    });
+  },
+
+  bindSearch: function (e) {
+    let value = e.detail.value;
+    this.resetSearchResult();
+    this.getCustomer();
+  },
+
+  bindDeleteSearch: function () {
+    this.setData({
+      search: ''
+    });
+    this.resetSearchResult();
+    this.getCustomer();
   },
 
   bindPickerChange: function (e) {
@@ -43,6 +68,8 @@ Page({
       [`${rangeStr}Index`]: e.detail.value,
       [name]: range[e.detail.value].code
     });
+    this.resetSearchResult();
+    this.getCustomer();
   },
 
   onReady: function () {
@@ -56,23 +83,44 @@ Page({
   },
 
   onLoad: function () {
-
-
+    this.getCustomer();
   },
 
-
-  
-  onReachBottom: function (event) {
-    console.log("onReachBottom");
-    this.getMoreCustomer();
-  },
-
-  getMoreCustomer: function () {
-    let newCustomerlist = this.data.customerList;
-    newCustomerlist.push({ id: '10', name: 'andy chen2222', status: '跟进中' })
+  getCustomer: function () {
+    let { search, currentPage, house_loan_period, car_loan_period, policy_loan_period } = this.data;
+    let query = {
+      page: currentPage,
+      house_loan_period: house_loan_period,
+      car_loan_period: car_loan_period,
+      policy_loan_period: policy_loan_period,
+      search: search
+    }
     this.setData({
-      customerList: newCustomerlist
+      loadingMore: true
+    });
+    api.getCustomer(query, (res) => {
+      if (res.status === 0) {
+        let pagination = res.data.pagination;
+        this.setData({
+          customerList: [...this.data.customerList, ...res.data.data],
+          currentPage: pagination.currentPage + 1,
+          hasNext: (pagination.currentPage * pagination.pageSize < pagination.total)
+        });
+      } else {
+        util.showError(res.message);
+      }
+      this.setData({
+        loadingMore: false
+      });
     });
   },
 
+
+  onReachBottom: function (event) {
+    console.log("onReachBottom");
+    let { loadingMore, hasNext } = this.data;
+    if (!loadingMore && hasNext) {
+      this.getCustomer();
+    }
+  },
 })

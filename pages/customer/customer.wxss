@@ -22,10 +22,26 @@
   font-size: 28rpx;
   background: #fff;
   padding-left: 10rpx;
+  position: relative;
 }
 
 .search-icon {
   line-height: 50rpx;
+}
+
+.delete-icon {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  top: 0rpx;
+  right: 0rpx;
+  display: flex;
+  align-items: center;
+}
+
+.delete-icon::before {
+  font-size: 40rpx;
+  padding: 5rpx;
 }
 
 .search-bar-input {
@@ -77,4 +93,19 @@
 .customer-icon {
   position: absolute;
   right: 30rpx;
+}
+
+.bottom-tip {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  display: block;
+  color: #999;
+}
+
+.loading-image {
+  width: 28rpx;
+  height: 28rpx;
+  vertical-align: middle;
+  margin: 0 5rpx;
 }

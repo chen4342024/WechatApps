@@ -23,7 +23,6 @@ let defaultData = {
   policyTypesIndex: 0,
   carTypesIndex: 0,
 
-  validateConfig: {},
   validateMessage: {},
   validateStatus: {},
 };
@@ -231,34 +230,58 @@ Page({
     })
   },
 
-  onSubmit: function (e) {
-    if (this.validate()) {
-      let data = {
-        name: this.data.name,
-        card_number: this.data.card_number,
-        address: this.data.address,
-        phone: this.data.phone,
-        house_loan_period: this.data.house_loan_period,
-        car_loan_period: this.data.car_loan_period,
-        policy_loan_period: this.data.policy_loan_period,
-        house_pictures: this.getUploadItemHashList(this.data.house_pictures),
-        car_pictures: this.getUploadItemHashList(this.data.car_pictures),
-        policy_pictures: this.getUploadItemHashList(this.data.policy_pictures)
-      };
-      let self = this;
-      api.postCustomer(data, function (res) {
-        console.log(res);
-        if (res.status === 0) {
-          util.showAlert('恭喜你，提交信息成功', function () {
-            self.setData({ ...defaultData });
-            wx.switchTab({
-              url: '/pages/customer/customer'
-            });
-          });
-        } else {
-          util.showError(res.message);
-        }
-      });
+
+  scrollToFirstError: function () {
+    let { validateStatus, validateConfig } = this.data;
+    for (let key of Object.keys(validateConfig)) {
+      if (validateStatus[key] && validateStatus[key] === 'error') {
+        this.scrollTo(`.J-form-${key}`);
+        return;
+      }
     }
+  },
+
+  scrollTo: function (select) {
+    util.getElementScollOffset(select, (scrollTop) => {
+      wx.pageScrollTo({
+        scrollTop: scrollTop,
+        duration: 300
+      })
+    });
+  },
+
+  onSubmit: function (e) {
+    if (!this.validate()) {
+      this.scrollToFirstError();
+      return;
+    }
+    let data = {
+      name: this.data.name,
+      card_number: this.data.card_number,
+      address: this.data.address,
+      phone: this.data.phone,
+      house_loan_period: this.data.house_loan_period,
+      car_loan_period: this.data.car_loan_period,
+      policy_loan_period: this.data.policy_loan_period,
+      house_pictures: this.getUploadItemHashList(this.data.house_pictures),
+      car_pictures: this.getUploadItemHashList(this.data.car_pictures),
+      policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
+      status: 1
+    };
+    return;
+    let self = this;
+    api.postCustomer(data, function (res) {
+      console.log(res);
+      if (res.status === 0) {
+        util.showAlert('恭喜你，提交信息成功', function () {
+          self.setData({ ...defaultData });
+          wx.switchTab({
+            url: '/pages/customer/customer'
+          });
+        });
+      } else {
+        util.showError(res.message);
+      }
+    });
   }
 })

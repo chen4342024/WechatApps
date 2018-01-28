@@ -3,7 +3,8 @@
   <view class='search-bar'>
     <view class='search-label'>
       <text class='search-icon iconfont icon-search'></text>
-      <input type='text' class='search-bar-input' placeholder='搜索' confirm-type='search'></input>
+      <input type='text' class='search-bar-input' data-name="search" placeholder='搜索' value="{{search}}" confirm-type='search' bindinput="bindInputChange" bindconfirm="bindSearch"></input>
+      <view bindtap="bindDeleteSearch" class='delete-icon'><text class='iconfont icon-close'></text></view>
     </view>
   </view>
   <view class='filter-bar'>
@@ -30,12 +31,16 @@
     </view>
   </view>
   <view class='search-result'>
-    <navigator url="/pages/customer_detail/customer_detail?title={{item.id}}"  hover-class="navigator-hover" wx:for="{{customerList}}">
+    <navigator wx:for="{{customerList}}" url="/pages/customer_detail/customer_detail?title={{item.id}}" hover-class="navigator-hover">
       <view class="customer-item">
         <text class='customer-name'>{{item.name}}</text>
-        <text class='customer-status'>{{item.status}}</text>
+        <text class='customer-status'>{{followStatus[item.status].text}}</text>
         <text class='customer-icon iconfont icon-enter'></text>
       </view>
     </navigator>
+    <view class="bottom-tip" wx:if="{{hasNext}}">加载中
+      <image class='loading-image' src='../../images/loading.gif'></image>
+    </view>
+     <text class="bottom-tip" wx:if="{{!hasNext}}">没有更多数据了</text> 
   </view>
 </view>

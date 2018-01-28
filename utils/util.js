@@ -38,9 +38,29 @@ function showAlert(msg, callback) {
   });
 }
 
+/**
+ * 获取节点相对于viewport的位置
+ */
+function getElementScollOffset(select, callback = noop) {
+  let query = wx.createSelectorQuery();
+  query.selectViewport().scrollOffset();
+  query.select(select).boundingClientRect();
+  query.exec((res) => {
+    let viewPortScrollTop = res[0].scrollTop;
+    let rect = res[1];
+    if (!rect) {
+      console.log(`select --> ${select} not found !!!`);
+      return;
+    }
+    let elemScrollTop = rect.top;
+    callback(viewPortScrollTop + elemScrollTop);
+  })
+}
+
 
 module.exports = {
   formatTime: formatTime,
   showError: showError,
-  showAlert: showAlert
+  showAlert: showAlert,
+  getElementScollOffset: getElementScollOffset
 }

@@ -2,23 +2,23 @@
 <view class="container">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class='panel'>
-      <view class='form-item {{validateStatus["name"]}}'>
+      <view class='form-item J-form-name {{validateStatus["name"]}}'>
         <label>
           <text class='form-label'>姓名</text>
-          <input class='form-control' placeholder="请输入姓名" 
-          value='{{name}}' data-name="name" bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+          <input class='form-control ' placeholder="请输入姓名" 
+          value='{{name}}' data-name="name"  bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
         <text class="error-tip">{{validateMessage['name']}}</text>
       </view>
-      <view class='form-item {{validateStatus["card_number"]}}'>
+      <view class='form-item J-form-card_number {{validateStatus["card_number"]}}'>
         <label>
           <text class='form-label'>身份证</text>
-          <input class='form-control' placeholder="请输入身份证号码" 
+          <input id="the-id" class='form-control' placeholder="请输入身份证号码" 
             value='{{card_number}}' data-name='card_number' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
         <text class="error-tip">{{validateMessage['card_number']}}</text>
       </view>
-      <view class='form-item {{validateStatus["address"]}}'>
+      <view class='form-item J-form-address {{validateStatus["address"]}}'>
         <label>
           <text class='form-label'>工作单位</text>
           <input class='form-control' placeholder="请填写工作单位信息" 
@@ -26,7 +26,7 @@
         </label>
         <text class="error-tip">{{validateMessage['address']}}</text>
       </view>
-      <view class='form-item {{validateStatus["phone"]}} '>
+      <view class='form-item J-form-phone {{validateStatus["phone"]}} '>
         <label class='no-bottom-border'>
           <text class='form-label'>联系方式</text>  
           <input class='form-control' placeholder="请输入手机号码" 
@@ -36,7 +36,7 @@
       </view>
     </view>
     <view class='panel'>
-      <view class='form-item'>
+      <view class='form-item J-form-house_loan_period'>
         <picker bindchange="bindPickerChange" data-range="houseTypes" data-name="house_loan_period" value="{{houseTypesIndex}}" range="{{houseTypes}}" range-key='text'>
           <view class='form-picker-wrap'>
             <text class='form-label'>房产信息</text>
@@ -51,7 +51,7 @@
       </view>
     </view>
     <view class='panel'>
-       <view class='form-item'>
+       <view class='form-item J-form-policy_loan_period'>
         <picker bindchange="bindPickerChange" data-range="policyTypes" data-name="policy_loan_period" value="{{policyTypesIndex}}" range="{{policyTypes}}" range-key="text" >
           <view class='form-picker-wrap'>
             <text class='form-label'>保单信息</text>
@@ -66,7 +66,7 @@
       </view>
     </view>
     <view class='panel'>
-       <view class='form-item'>
+       <view class='form-item J-form-car_loan_period'>
         <picker bindchange="bindPickerChange" data-range="carTypes" data-name="car_loan_period" value="{{carTypesIndex}}" range="{{carTypes}}" range-key='text'>
           <view class='form-picker-wrap'>
             <text class='form-label'>车</text>

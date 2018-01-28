@@ -1,3 +1,5 @@
+@import '../../wxss/font.wxss';
+
 .upload-item {
   display: block;
   width: 210rpx;
@@ -9,7 +11,7 @@
   overflow: hidden;
   box-sizing: border-box;
 }
-@import '../../wxss/font.wxss';
+
 
 .upload-item > image {
   width: 100%;
