@@ -58,4 +58,6 @@
       </view>
     </view>
   </view>
+  <button class='edit-btn' type="primary" bindtap="bindEdit"> 编辑 </button>
+  <button class='delete-btn' type="warn" bindtap="bindDelete"> 删除 </button>
 </view>

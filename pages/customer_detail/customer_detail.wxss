@@ -63,3 +63,15 @@
   width: 100%;
   height: 100%;
 }
+
+.edit-btn{
+  margin-top:30rpx;
+  margin-bottom:30rpx;
+  width:690rpx;
+}
+
+.delete-btn{
+  margin-top:30rpx;
+  margin-bottom:30rpx;
+  width:690rpx;
+}

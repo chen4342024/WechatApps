@@ -82,5 +82,40 @@ Page({
       current: item, // 当前显示图片的http链接
       urls: urls // 需要预览的图片http链接列表
     })
+  },
+
+  bindEdit: function () {
+    wx.switchTab({
+      url: '/pages/index/index',
+    });
+  },
+
+  bindDelete: function () {
+    let self = this;
+    wx.showModal({
+      title: '删除确认',
+      content: '您确定要删除该客户吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log(res);
+          self.deleteCustomer();
+        }
+      }
+    })
+  },
+
+  deleteCustomer: function () {
+    let id = this.data.customer._id;
+    api.deleteCustomerById(id, (res) => {
+      if (res.status === 0) {
+        util.showAlert('删除成功', function () {
+          wx.navigateTo({
+            url: '/pages/customer/customer',
+          });
+        });
+      } else {
+        util.showError(res.message);
+      }
+    });
   }
 })

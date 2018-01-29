@@ -76,6 +76,16 @@ function getCustomerById(id, successCB = noop, errorCB = noop) {
 }
 
 
+function deleteCustomerById(id, successCB = noop, errorCB = noop) {
+  const url = origin + '/api/v1/customers/' + id;
+  return request(authHeader({
+    url: url,
+    method: 'DELETE',
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
 function uploadFile(data, successCB = noop, errorCB = noop) {
   //图片上传的接口
   const url = origin + '/api/v1/upload';
@@ -131,5 +141,6 @@ module.exports = {
   getCustomer: getCustomer,
   uploadFile: uploadFile,
   getCustomerById: getCustomerById,
-  getPictureUrl: getPictureUrl
+  getPictureUrl: getPictureUrl,
+  deleteCustomerById: deleteCustomerById
 }

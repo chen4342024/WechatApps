@@ -173,9 +173,15 @@ Page({
     if (!wx.getStorageSync('token')) {
       wx.navigateTo({
         url: '/pages/login/index',
-      })
+      });
     }
     this.initValidate();
+  },
+
+  onShow: function () {
+    let globalData = app.globalData || {};
+    let param = globalData.pageParam;
+    let customerId = param.id;
   },
 
   //验证表单
