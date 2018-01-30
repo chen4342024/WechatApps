@@ -4,6 +4,7 @@ const app = getApp();
 const globalData = require('../../utils/global.js');
 const api = require('../../utils/api.js');
 const util = require('../../utils/util.js');
+const route = require('../../utils/route.js');
 
 Page({
   data: {
@@ -39,7 +40,7 @@ Page({
   },
 
   mapCustomerList: function (customerList) {
-    return customerList.map((customer)=>{
+    return customerList.map((customer) => {
       let { followStatus, houseTypes, policyTypes, carTypes } = this.data;
       let getText = function (code, data) {
         let filterData = globalData.findByCode(code, data);
@@ -90,8 +91,15 @@ Page({
     console.log("index page onReady");
   },
   onShow: function () {
+    let param = route.getParam();
+    if (param.refresh) {
+      route.resetParam();
+      this.resetSearchResult();
+      this.getCustomer();
+    }
     console.log("index page show");
   },
+
   onHide: function () {
     console.log("index page hide");
   },

@@ -1,6 +1,7 @@
 const util = require('../../utils/util.js');
 const api = require('../../utils/api.js');
 const globalData = require('../../utils/global.js');
+const route = require('../../utils/route.js');
 //获取应用实例
 const app = getApp()
 
@@ -85,9 +86,10 @@ Page({
   },
 
   bindEdit: function () {
-    wx.switchTab({
-      url: '/pages/index/index',
-    });
+    let id = this.data.customer._id;
+    wx.navigateTo({
+      url: `/pages/customer_edit/customer_edit?id=${id}`,
+    })
   },
 
   bindDelete: function () {
@@ -109,9 +111,7 @@ Page({
     api.deleteCustomerById(id, (res) => {
       if (res.status === 0) {
         util.showAlert('删除成功', function () {
-          wx.navigateTo({
-            url: '/pages/customer/customer',
-          });
+          route.goCustomerAndRefresh();
         });
       } else {
         util.showError(res.message);

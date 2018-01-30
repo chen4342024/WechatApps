@@ -1,0 +1,105 @@
+.container {
+  background: #f0f0f0;
+}
+
+.panel {
+  background: #fff;
+  padding: 0 30rpx;
+  margin-top: 30rpx;
+}
+
+.panel:first-child {
+  margin-top: 0rpx;
+}
+
+.form-item label, .form-item .form-picker-wrap {
+  border-bottom: 1px solid #d3d3d3;
+  display: flex;
+  font-size: 28rpx;
+}
+
+.form-item.focus label {
+  border-bottom-color: #1aad19;
+}
+
+.form-item.error label {
+  border-bottom: 1px solid red !important;
+}
+
+.form-item.error .error-tip {
+  display: block;
+}
+
+.form-item .error-tip {
+  color: red;
+  font-size: 24rpx;
+  display: none;
+}
+
+.no-bottom-border {
+  border-bottom: none !important;
+}
+
+.form-label {
+  height: 100rpx;
+  line-height: 100rpx;
+  flex-basis: 200rpx;
+}
+
+.form-control {
+  flex: 1;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+.submit-btn {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  width: 690rpx;
+}
+
+.upload-container {
+  display: flex;
+  padding: 30rpx 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-left: -30rpx;
+}
+
+.upload-item {
+  display: block;
+  width: 210rpx;
+  height: 210rpx;
+  border: 1px solid #dcdee3;
+  margin-left: 30rpx;
+  margin-bottom: 30rpx;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.upload-item > image {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-item-add:before {
+  width: 44rpx;
+  height: 1px;
+}
+
+.upload-item-add:after {
+  width: 1px;
+  height: 44rpx;
+}
+
+.upload-item-add:before, .upload-item-add:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #999;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}

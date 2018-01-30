@@ -40,12 +40,24 @@ function findByCode(code, data) {
   return data.filter((value) => {
     return value.code == code;
   });
-}
+};
+
+
+function findIndex(code, data) {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].code == code) {
+      return i;
+    }
+  }
+  return -1;
+};
+
 
 module.exports = {
   houseInfoEnum,
   carTypeEnum,
   policyTypesEnum,
   followStatus,
-  findByCode: findByCode
+  findByCode: findByCode,
+  findIndex
 };

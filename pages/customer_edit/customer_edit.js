@@ -10,6 +10,7 @@ const UploadItem = require('../../components/UploadItem/item.js');
 
 // 默认的数据
 let defaultData = {
+  _id: -1,
   name: '',
   card_number: '',
   address: '',
@@ -17,6 +18,8 @@ let defaultData = {
   house_loan_period: '',
   car_loan_period: '',
   policy_loan_period: '',
+  status: 1,
+
   house_pictures: [],
   car_pictures: [],
   policy_pictures: [],
@@ -24,6 +27,7 @@ let defaultData = {
   houseTypesIndex: 0,
   policyTypesIndex: 0,
   carTypesIndex: 0,
+  followStatusIndex: 0,
 
   validateMessage: {},
   validateStatus: {},
@@ -31,16 +35,21 @@ let defaultData = {
 
 Page({
   data: {
-    name: '陈佳佳',
-    card_number: '4452021991052223000',
-    address: '租租车',
-    phone: '13070238489',
+    _id: -1,
+    name: '',
+    card_number: '',
+    address: '',
+    phone: '',
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
     house_pictures: [],
     car_pictures: [],
     policy_pictures: [],
+    status: 1,
+
+    followStatus: globalData.followStatus,
+    followStatusIndex: 0,
 
     houseTypes: globalData.houseInfoEnum,
     houseTypesIndex: 0,
@@ -54,21 +63,71 @@ Page({
     validateConfig: {},
     validateMessage: {},
     validateStatus: {},
-
   },
+
+  onLoad: function (options) {
+    if (!wx.getStorageSync('token')) {
+      wx.navigateTo({
+        url: '/pages/login/index',
+      });
+    }
+    this.initValidate();
+    if (options.id && options.id.length > 0) {
+      this.getCustomerById(options.id);
+    }
+  },
+  getCustomerById: function (id) {
+    wx.showLoading({ mask: true, title: "加载中" });
+    api.getCustomerById(id, (res) => {
+      wx.hideLoading();
+      if (res.status === 0) {
+        this.setDataByCustomer(res.data);
+      } else {
+        util.showError(res.message);
+      }
+    });
+  },
+
+  setDataByCustomer: function (customer) {
+    let {
+      followStatus,
+      houseTypes, policyTypes, carTypes
+    } = this.data;
+
+    let { _id, name, card_number, address, phone,
+      house_loan_period, car_loan_period, policy_loan_period,
+      house_pictures, car_pictures, policy_pictures, status
+    } = customer;
+    this.setData({
+      _id, name, card_number, address, phone,
+      house_loan_period, car_loan_period, policy_loan_period,
+      status,
+      house_pictures: this.mapUploadItem(house_pictures),
+      car_pictures: this.mapUploadItem(car_pictures),
+      policy_pictures: this.mapUploadItem(policy_pictures),
+      followStatusIndex: globalData.findIndex(status, followStatus),
+      houseTypesIndex: globalData.findIndex(house_loan_period, houseTypes),
+      policyTypesIndex: globalData.findIndex(policy_loan_period, policyTypes),
+      carTypesIndex: globalData.findIndex(car_loan_period, carTypes),
+    });
+  },
+
+  mapUploadItem: function (itemList) {
+    return itemList.map((hash) => {
+      let item = new UploadItem({
+        imgSrc: api.getPictureUrl(hash)
+      });
+      item.done(hash);
+      return item;
+    });
+  },
+
 
   // 绑定input改变事件
   bindInputChange: function (e) {
     let name = e.currentTarget.dataset.name;
     this.setData({
       [name]: e.detail.value
-    })
-  },
-
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
     })
   },
 
@@ -170,22 +229,6 @@ Page({
     });
   },
 
-  onLoad: function () {
-    if (!wx.getStorageSync('token')) {
-      wx.navigateTo({
-        url: '/pages/login/index',
-      });
-    }
-    this.initValidate();
-  },
-
-  onShow: function () {
-    let param = route.getParam();
-    if (param.id) {
-      
-    }
-    
-  },
 
   //验证表单
   validate: function () {
@@ -292,8 +335,11 @@ Page({
       house_pictures: this.getUploadItemHashList(this.data.house_pictures),
       car_pictures: this.getUploadItemHashList(this.data.car_pictures),
       policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
-      status: 1
+      status: this.data.status
     };
+    if (this.data._id && this.data._id.length > 0){
+      data._id = this.data._id;
+    }
     let self = this;
     api.postCustomer(data, function (res) {
       console.log(res);

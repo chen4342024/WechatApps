@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "客户编辑",
+  "usingComponents": {
+    "upload-item": "/components/UploadItem/uploadItem"
+  }
+}

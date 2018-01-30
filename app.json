@@ -1,9 +1,10 @@
 {
   "pages":[
+    "pages/customer/customer",
     "pages/index/index",
     "pages/login/index",
-    "pages/customer_detail/customer_detail",
-    "pages/customer/customer",
+    "pages/customer_detail/customer_detail",    
+    "pages/customer_edit/customer_edit",
     "pages/logs/logs"
   ],
   "window":{
