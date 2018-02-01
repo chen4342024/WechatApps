@@ -28,13 +28,16 @@ function goCustomerEditById(id) {
   wx.switchTab({ url: '/pages/index/index' });
 }
 
-
-
+function goBackAndRefresh(){
+  setParam({ refresh: true });
+  wx.navigateBack();
+}
 
 module.exports = {
   goCustomerAndRefresh,
   goCustomerEditById,
   getParam,
   resetParam,
-  setParam
+  setParam,
+  goBackAndRefresh
 }

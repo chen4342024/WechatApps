@@ -1,0 +1,19 @@
+@import '../../wxss/font.wxss';
+
+page {
+  height: 100%;
+  background: #2f4159; 
+}
+
+.container {
+  background: #2f4159;  
+   height: 100%; 
+   padding-top: 110rpx; 
+   box-sizing: border-box;
+  /* background: #fff; */
+  text-align: center;
+}
+
+.unfinish{
+  color: #fff;
+}

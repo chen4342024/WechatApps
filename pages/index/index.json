@@ -1,6 +1,3 @@
 {
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "upload-item": "/components/UploadItem/uploadItem"
-  }
+  "navigationBarTitleText": "首页"
 }

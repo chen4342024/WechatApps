@@ -337,22 +337,38 @@ Page({
       policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
       status: this.data.status
     };
-    if (this.data._id && this.data._id.length > 0){
+    if (this.data._id && this.data._id.length > 0) {
       data._id = this.data._id;
-    }
-    let self = this;
-    api.postCustomer(data, function (res) {
-      console.log(res);
-      if (res.status === 0) {
-        util.showAlert('恭喜你，提交信息成功', function () {
-          self.setData({ ...defaultData });
-          wx.switchTab({
-            url: '/pages/customer/customer'
+      let self = this;
+      // 修改客户信息
+      api.putCustomer(data, function (res) {
+        console.log(res);
+        if (res.status === 0) {
+          util.showAlert('修改客户信息成功', function () {
+            self.setData({ ...defaultData });
+            route.goBackAndRefresh();
           });
-        });
-      } else {
-        util.showError(res.message);
-      }
-    });
+        } else {
+          util.showError(res.message);
+        }
+      });
+    } else {
+      let self = this;
+      // 添加客户信息
+      api.postCustomer(data, function (res) {
+        console.log(res);
+        if (res.status === 0) {
+          util.showAlert('恭喜你，提交信息成功', function () {
+            self.setData({ ...defaultData });
+            wx.switchTab({
+              url: '/pages/customer/customer'
+            });
+          });
+        } else {
+          util.showError(res.message);
+        }
+      });
+    }
+
   }
 })

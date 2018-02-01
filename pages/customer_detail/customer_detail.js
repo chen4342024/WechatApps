@@ -48,8 +48,13 @@ Page({
   onReady: function () {
     console.log("index page onReady");
   },
+
   onShow: function () {
-    console.log("index page show");
+    let param = route.getParam();
+    if (param.refresh) {
+      route.resetParam();
+      this.getCustomerById();
+    }
   },
   onHide: function () {
     console.log("index page hide");

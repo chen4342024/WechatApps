@@ -87,7 +87,9 @@
 }
 
 .customer-status {
-  flex-basis: 130rpx;
+  flex-basis: 180rpx;
+  text-align: right;
+  padding-right: 40rpx;
 }
 
 .customer-icon {

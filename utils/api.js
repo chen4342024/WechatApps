@@ -43,6 +43,18 @@ function request(data) {
   return wx.request(data);
 }
 
+function putCustomer(data, successCB = noop, errorCB = noop) {
+  const url = origin + `/api/v1/customers/${data._id}`;
+  return request(authHeader({
+    url: url,
+    method: 'PUT',
+    data: data,
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
+
 function postCustomer(data, successCB = noop, errorCB = noop) {
   const url = origin + '/api/v1/customers';
   return request(authHeader({
@@ -139,8 +151,9 @@ module.exports = {
   errorHandler: errorHandler,
   postCustomer: postCustomer,
   getCustomer: getCustomer,
-  uploadFile: uploadFile,
+  putCustomer: putCustomer,
   getCustomerById: getCustomerById,
+  deleteCustomerById: deleteCustomerById,
+  uploadFile: uploadFile,
   getPictureUrl: getPictureUrl,
-  deleteCustomerById: deleteCustomerById
 }
