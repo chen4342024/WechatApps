@@ -1,4 +1,31 @@
 <!--index.wxml-->
 <view class="container">
-  <text class='unfinish'>功能开发中...</text>
+  <view class='banner'></view>
+  <view class='my-info'>
+    <!-- <image class='avatar' src='../../images/logo.jpg'></image> -->
+    <text class='my-name'>{{userInfo.name}}</text>
+    <text class='info-value phone'>{{userInfo.phone}}</text>
+
+    <view class='info-detail'>
+      <view class='info-item '>
+        <text class='info-label'>用户名：</text>
+        <text class='info-value my-account'>{{userInfo.login_name}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='info-label'>出生日期：</text>
+        <text class='info-value birth'>{{userInfo.birthText}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='info-label'>性别：</text>
+        <text class='info-value gender'>{{userInfo.genderText}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='info-label'>所属公司：</text>
+        <text class='info-value company'>{{userInfo.companyText}}</text>
+      </view>
+    </view>
+  </view>
+  <button class='change-password-btn' type="primary" bindtap="bindChangePassword"> 修改密码 </button>
+  <button class='logout-btn' type="warn" bindtap="bindLogout"> 退出登陆 </button>
+
 </view>

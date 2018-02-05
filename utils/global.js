@@ -36,12 +36,16 @@ const followStatus = [
   { code: 5, text: "完成签约" },
 ];
 
+const genderEnum = [
+  { code: 0, text: "女" },
+  { code: 1, text: "男" }
+];
+
 function findByCode(code, data) {
   return data.filter((value) => {
     return value.code == code;
   });
 };
-
 
 function findIndex(code, data) {
   for (let i = 0; i < data.length; i++) {
@@ -59,5 +63,6 @@ module.exports = {
   policyTypesEnum,
   followStatus,
   findByCode: findByCode,
-  findIndex
+  findIndex,
+  genderEnum
 };

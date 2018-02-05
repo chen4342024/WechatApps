@@ -1,4 +1,6 @@
-const origin = 'http://127.0.0.1:7001'
+// const origin = 'http://127.0.0.1:7001';
+const origin = 'http://192.168.1.105:7001';
+
 
 const noop = () => { };
 const util = require('./util.js');
@@ -146,6 +148,27 @@ function getPictureUrl(hash) {
   return `${origin}/api/v1/pictures/${hash}`;
 }
 
+function changePassword(data, successCB = noop, errorCB = noop) {
+  const url = origin + '/api/v1/users/change_password/';
+  return request(authHeader({
+    url: url,
+    method: 'PUT',
+    data: data,
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
+function getUserById(id, successCB = noop, errorCB = noop) {
+  const url = origin + '/api/v1/users/' + id;
+  return request(authHeader({
+    url: url,
+    method: 'GET',
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
 module.exports = {
   accountLogin: accountLogin,
   errorHandler: errorHandler,
@@ -156,4 +179,6 @@ module.exports = {
   deleteCustomerById: deleteCustomerById,
   uploadFile: uploadFile,
   getPictureUrl: getPictureUrl,
+  changePassword: changePassword,
+  getUserById: getUserById
 }

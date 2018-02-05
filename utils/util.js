@@ -1,3 +1,23 @@
+const formatDate = (date, format = "yyyy-MM-dd") => {
+  var o = {
+    "M+": date.getMonth() + 1, //month
+    "d+": date.getDate(),    //day
+    "h+": date.getHours(),   //hour
+    "m+": date.getMinutes(), //minute
+    "s+": date.getSeconds(), //second
+    "q+": Math.floor((date.getMonth() + 3) / 3),  //quarter
+    "S": date.getMilliseconds() //millisecond
+  }
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1,(date.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(format)){
+      format = format.replace(RegExp.$1,RegExp.$1.length == 1 ? o[k] :("00" + o[k]).substr(("" + o[k]).length));
+    }
+  }
+  return format;
+};
+
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -9,6 +29,8 @@ const formatTime = date => {
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+
+
 
 const formatNumber = n => {
   n = n.toString()
@@ -70,6 +92,7 @@ function scrollTo(select) {
 
 
 module.exports = {
+  formatDate: formatDate,
   formatTime: formatTime,
   showError: showError,
   showAlert: showAlert,

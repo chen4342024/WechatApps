@@ -1,0 +1,4 @@
+<view class='toast'>
+  <text class="{{contentClass}}">{{content}}</text>
+  <view wx:if="{{mask}}" class="custom-toast-mask"></view>
+</view>

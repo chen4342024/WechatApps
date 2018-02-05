@@ -1,4 +1,6 @@
 <!--index.wxml-->
 <view class="container">
+  <!-- 指向微信公众平台首页的web-view -->
+  <web-view src="https://m.zuzuche.com/w/tidl"></web-view>
   <text class='unfinish'>功能开发中...</text>
 </view>

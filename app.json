@@ -1,39 +1,43 @@
 {
-  "pages":[
-    
+  "pages": [
     "pages/index/index",
     "pages/customer/customer",
     "pages/login/index",
-    "pages/customer_detail/customer_detail",    
+    "pages/customer_detail/customer_detail",
     "pages/customer_edit/customer_edit",
-    "pages/my/my",
     "pages/company/company",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/change_password/change_password",
+    "pages/my/my"
   ],
-  "window":{
-    "backgroundTextStyle":"dark",
+  "window": {
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#000000",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
-  "tabBar":{
+  "tabBar": {
     "color": "#333",
     "selectedColor": "#1AAD19",
     "backgroundColor": "#ffffff",
-    "list":[{
-      "text":"首页",
-      "pagePath":"pages/index/index",
-      "iconPath":"images/home.png",
-      "selectedIconPath": "images/home-active.png"
-    },{
-      "text": "客户",
-      "pagePath": "pages/customer/customer",
-      "iconPath": "images/list.png",
-      "selectedIconPath": "images/list-active.png"
-    },{
-      "text": "个人中心",
-      "pagePath": "pages/my/my",
-      "iconPath": "images/custom.png",
-      "selectedIconPath": "images/custom-active.png"
-    }]
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "text": "客户",
+        "pagePath": "pages/customer/customer",
+        "iconPath": "images/list.png",
+        "selectedIconPath": "images/list-active.png"
+      },
+      {
+        "text": "个人中心",
+        "pagePath": "pages/my/my",
+        "iconPath": "images/custom.png",
+        "selectedIconPath": "images/custom-active.png"
+      }
+    ]
   }
 }
