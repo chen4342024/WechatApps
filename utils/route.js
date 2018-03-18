@@ -28,7 +28,7 @@ function goCustomerEditById(id) {
   wx.switchTab({ url: '/pages/index/index' });
 }
 
-function goBackAndRefresh(){
+function goBackAndRefresh() {
   setParam({ refresh: true });
   wx.navigateBack();
 }

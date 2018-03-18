@@ -80,12 +80,18 @@ Page({
 
   bindLogout: function () {
     try {
-      wx.removeStorageSync('token');
+      this.clearCache();
       wx.navigateTo({
         url: '/pages/login/index',
       });
     } catch (e) {
       console.log(e);
     }
-  }
+  },
+
+  //删除跟用户有关的信息
+  clearCache: function () {
+    store.remove('token');
+    store.remove('userInfo');
+  },
 })

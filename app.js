@@ -45,6 +45,5 @@ App({
     console.log(msg)
   },
   globalData: {
-    userInfo: null
   }
 })

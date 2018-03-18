@@ -5,12 +5,14 @@ const globalData = require('../../utils/global.js');
 const api = require('../../utils/api.js');
 const util = require('../../utils/util.js');
 const route = require('../../utils/route.js');
+const store = require('../../utils/store.js');
 
 Page({
   data: {
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
+    status:'',
     search: '',
 
     houseTypes: globalData.houseInfoEnum,
@@ -23,6 +25,7 @@ Page({
     carTypesIndex: 0,
 
     followStatus: globalData.followStatus,
+    followStatusIndex: 0,
 
     customerList: [],
     currentPage: 0,
@@ -89,10 +92,20 @@ Page({
 
   onReady: function () {
     console.log("index page onReady");
+    this.setData({
+      globalToken: store.get('token')
+    });
   },
   onShow: function () {
+    let storeToken = store.get('token');
+    let isSameUser = storeToken === this.data.globalToken;
     let param = route.getParam();
-    if (param.refresh) {
+
+    if(!isSameUser){
+      this.data.globalToken = storeToken;
+    }
+
+    if (!isSameUser || param.refresh) {
       route.resetParam();
       this.resetSearchResult();
       this.getCustomer();
@@ -104,18 +117,31 @@ Page({
     console.log("index page hide");
   },
 
-  onLoad: function () {
-    this.getCustomer();
-  },
+  // onLoad: function () {
+  //   this.getCustomer();
+  // },
 
   getCustomer: function () {
-    let { search, currentPage, house_loan_period, car_loan_period, policy_loan_period } = this.data;
+    let { search, currentPage, house_loan_period, car_loan_period, policy_loan_period, status } = this.data;
     let query = {
-      page: currentPage,
-      house_loan_period: house_loan_period,
-      car_loan_period: car_loan_period,
-      policy_loan_period: policy_loan_period,
-      search: search
+      currentPage: currentPage,
+    }
+    if (house_loan_period && house_loan_period != '-1'){
+      query.house_loan_period = house_loan_period;
+    }
+    if (car_loan_period && car_loan_period != '-1') {
+      query.car_loan_period = car_loan_period;
+    }
+    if (policy_loan_period && policy_loan_period != '-1') {
+      query.policy_loan_period = policy_loan_period;
+    }
+
+    if (status && status != '-1') {
+      query.status = status;
+    }
+
+    if (search && search.length > 0) {
+      query.search = search;
     }
     this.setData({
       loadingMore: true

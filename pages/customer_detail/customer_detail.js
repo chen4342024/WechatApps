@@ -31,6 +31,8 @@ Page({
       houceLoanPeriodText: getText(customer.house_loan_period, houseTypes),
       carLoanPeriodText: getText(customer.car_loan_period, carTypes),
       policyLoanPeriodText: getText(customer.policy_loan_period, policyTypes),
+
+      creditPicturesUrl: this.getUrl(customer.credit_pictures),
       housePicturesUrl: this.getUrl(customer.house_pictures),
       carPicturesUrl: this.getUrl(customer.car_pictures),
       policyPicturesUrl: this.getUrl(customer.policy_pictures),

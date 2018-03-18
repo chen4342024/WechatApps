@@ -1,11 +1,14 @@
 <!--index.wxml-->
 <view class="container">
   <view class='panel follow-info'>
-    <view class='info-item no-bottom-border'>
+    <view class='info-item '>
       <text class='item-label'>跟进情况</text>
       <text class='item-value'>{{customer.statusText}}</text>
     </view>
-
+    <view class='info-item no-bottom-border'>
+      <text class='item-label'>跟进人</text>
+      <text class='item-value'>{{customer.auth_user && customer.auth_user.name}}</text>
+    </view>
   </view>
   <view class='panel'>
     <view class='info-item'>
@@ -18,7 +21,7 @@
     </view>
     <view class='info-item'>
       <text class='item-label'>工作单位</text>
-      <text class='item-value'>{{customer.address}}</text>
+      <text class='item-value'>{{customer.company_address}}</text>
     </view>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>联系方式</text>
@@ -27,37 +30,51 @@
   </view>
   <view class='panel'>
     <view class='info-item '>
-      <text class='item-label'>房产信息</text>
-      <text class='item-value'>{{customer.houceLoanPeriodText}}</text>
+      <text class='item-label'>征信信息</text>
     </view>
-    <view class='info-image-list'>
-      <view class='preview-item' wx:for="{{customer.housePicturesUrl}}" data-pictures="{{customer.housePicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
+    <view wx:if="{{customer.creditPicturesUrl.length > 0}}" class='info-image-list'>
+      <view class='preview-item' wx:for="{{customer.creditPicturesUrl}}" data-pictures="{{customer.creditPicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
+    <view wx:if="{{customer.creditPicturesUrl.length === 0}}" class='empty-image-list'>暂无图片</view>
+  </view>
+  <view class='panel'>
+    <view class='info-item '>
+      <text class='item-label'>房产信息</text>
+      <text class='item-value'>{{customer.houceLoanPeriodText}}</text>
+    </view>
+    <view wx:if="{{customer.housePicturesUrl.length > 0}}" class='info-image-list'>
+      <view class='preview-item' wx:for="{{customer.housePicturesUrl}}"  data-pictures="{{customer.housePicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
+        <image mode="aspectFill" src="{{item}}"></image>
+      </view>
+    </view>
+     <view wx:if="{{customer.housePicturesUrl.length === 0}}" class='empty-image-list'>暂无图片</view>
   </view>
   <view class='panel'>
     <view class='info-item '>
       <text class='item-label'>车辆信息</text>
       <text class='item-value'>{{customer.carLoanPeriodText}}</text>
     </view>
-    <view class='info-image-list'>
+    <view class='info-image-list' wx:if="{{customer.carPicturesUrl.length > 0}}">
       <view class='preview-item' wx:for="{{customer.carPicturesUrl}}" data-pictures="{{customer.carPicturesUrl}}" data-item="{{item}}" bindtap='previewImage'>
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
+    <view wx:if="{{customer.carPicturesUrl.length === 0}}" class='empty-image-list'>暂无图片</view>
   </view>
   <view class='panel'>
     <view class='info-item '>
       <text class='item-label'>保单</text>
       <text class='item-value'>{{customer.policyLoanPeriodText}}</text>
     </view>
-    <view class='info-image-list'>
+    <view wx:if="{{customer.policyPicturesUrl.length > 0}}" class='info-image-list'>
       <view class='preview-item' wx:for="{{customer.policyPicturesUrl}}" data-pictures="{{customer.policyPicturesUrl}}" data-item="{{item}}" bindtap='previewImage' >
         <image mode="aspectFill" src="{{item}}"></image>
       </view>
     </view>
+    <view wx:if="{{customer.policyPicturesUrl.length === 0}}" class='empty-image-list'>暂无图片</view>
   </view>
   <button class='edit-btn' type="primary" bindtap="bindEdit"> 编辑 </button>
-  <button class='delete-btn' type="warn" bindtap="bindDelete"> 删除 </button>
+  <!-- <button class='delete-btn' type="warn" bindtap="bindDelete"> 删除 </button> -->
 </view>

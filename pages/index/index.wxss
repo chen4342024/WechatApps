@@ -5,6 +5,15 @@ page {
   background: #2f4159; 
 }
 
+.dev-tip{
+  position: fixed;
+  top: 20rpx;
+  right: 20rpx;
+  background: #99c733;
+  padding: 10rpx;
+  border-radius: 5rpx;
+}
+
 .container {
   background: #2f4159;  
    height: 100%; 
@@ -56,6 +65,7 @@ page {
   height: 250rpx;
   margin-left: 70rpx;
   color: #fff;
+  position: relative;
 }
 
 .entrance-content{
@@ -71,6 +81,20 @@ page {
 .entrance-content .iconfont{
   font-size: 80rpx;
   margin-bottom: 20rpx;
+}
+
+.developing-mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

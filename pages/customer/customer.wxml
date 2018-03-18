@@ -29,6 +29,13 @@
         </view>
       </picker>
     </view>
+    <view class='filter-item'>
+      <picker mode="selector" value='{{followStatusIndex}}' data-range="followStatus" data-name="status" range='{{followStatus}}' range-key="text" bindchange='bindPickerChange'>
+        <view class='form-picker-wrap'>
+          <text class=''>{{followStatus[followStatusIndex].label || followStatus[followStatusIndex].text }}<text class='iconfont icon-arrow-down'></text></text>
+        </view>
+      </picker>
+    </view>
   </view>
   <view class='search-result'>
     <navigator wx:for="{{customerList}}" url="/pages/customer_detail/customer_detail?id={{item._id}}" hover-class="navigator-hover">

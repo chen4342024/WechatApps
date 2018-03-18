@@ -1,5 +1,24 @@
 /**app.wxss**/
+
 .container {
   height: 100%;
   font-size: 28rpx;
-} 
+}
+
+.arrow {
+  position: relative;
+  padding-left: 15px;
+}
+
+.arrow:after {
+  content: "";
+  display: block;
+  width: 0.16rpx;
+  height: 0.16rpx;
+  border-right: 4rpx solid #d3d3d3;
+  border-bottom: 4rpx solid #d3d3d3;
+  top: 50%;
+  right: 0;
+  position: absolute;
+  -webkit-transform: translateY(-50%) rotate(-45deg);
+}

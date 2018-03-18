@@ -9,16 +9,17 @@ const route = require('../../utils/route.js')
 
 Page({
   data: {
-    
-
+    isDev: false
   },
 
   onLoad: function () {
-    
+    this.setData({
+      isDev: api.isDev()
+    });
   },
 
   onShow: function () {
-     
+
   }
 
 })

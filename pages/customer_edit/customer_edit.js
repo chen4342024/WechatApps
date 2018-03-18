@@ -13,13 +13,14 @@ let defaultData = {
   _id: -1,
   name: '',
   card_number: '',
-  address: '',
+  company_address: '',
   phone: '',
   house_loan_period: '',
   car_loan_period: '',
   policy_loan_period: '',
   status: 1,
 
+  credit_pictures: [],
   house_pictures: [],
   car_pictures: [],
   policy_pictures: [],
@@ -38,11 +39,12 @@ Page({
     _id: -1,
     name: '',
     card_number: '',
-    address: '',
+    company_address: '',
     phone: '',
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
+    credit_pictures: [],
     house_pictures: [],
     car_pictures: [],
     policy_pictures: [],
@@ -94,15 +96,16 @@ Page({
       houseTypes, policyTypes, carTypes
     } = this.data;
 
-    let { _id, name, card_number, address, phone,
+    let { _id, name, card_number, company_address, phone,
       house_loan_period, car_loan_period, policy_loan_period,
-      house_pictures, car_pictures, policy_pictures, status
+      house_pictures, car_pictures, policy_pictures, credit_pictures,status
     } = customer;
     this.setData({
-      _id, name, card_number, address, phone,
+      _id, name, card_number, company_address, phone,
       house_loan_period, car_loan_period, policy_loan_period,
       status,
       house_pictures: this.mapUploadItem(house_pictures),
+      credit_pictures: this.mapUploadItem(credit_pictures),
       car_pictures: this.mapUploadItem(car_pictures),
       policy_pictures: this.mapUploadItem(policy_pictures),
       followStatusIndex: globalData.findIndex(status, followStatus),
@@ -189,6 +192,12 @@ Page({
           });
           api.errorHandler(res);
         }
+      }, (res) => {
+        uploadItem.fail();
+        this.setData({
+          [container]: itemList
+        });
+        api.errorHandler(res);
       });
 
       uploadTask.onProgressUpdate((res) => {
@@ -292,7 +301,7 @@ Page({
     validateConfig['card_number'] = [
       { validate: validateUtil.required, msg: "请输入身份证" }
     ];
-    validateConfig['address'] = [
+    validateConfig['company_address'] = [
       { validate: validateUtil.required, msg: "请输入工作单位" },
     ];
     validateConfig['phone'] = [
@@ -302,6 +311,9 @@ Page({
 
   // 获取图片item的hash值以便提交
   getUploadItemHashList(itemList = []) {
+    itemList = itemList.filter((item) => {
+      return item.status === UploadItem.STATUS.done;
+    })
     return itemList.map((item) => {
       return item.hash;
     })
@@ -327,11 +339,12 @@ Page({
     let data = {
       name: this.data.name,
       card_number: this.data.card_number,
-      address: this.data.address,
+      company_address: this.data.company_address,
       phone: this.data.phone,
       house_loan_period: this.data.house_loan_period,
       car_loan_period: this.data.car_loan_period,
       policy_loan_period: this.data.policy_loan_period,
+      credit_pictures: this.getUploadItemHashList(this.data.credit_pictures),
       house_pictures: this.getUploadItemHashList(this.data.house_pictures),
       car_pictures: this.getUploadItemHashList(this.data.car_pictures),
       policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
@@ -360,9 +373,7 @@ Page({
         if (res.status === 0) {
           util.showAlert('恭喜你，提交信息成功', function () {
             self.setData({ ...defaultData });
-            wx.switchTab({
-              url: '/pages/customer/customer'
-            });
+            route.goCustomerAndRefresh();
           });
         } else {
           util.showError(res.message);

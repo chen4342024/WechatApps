@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class='logo'>
-    <image src='../../../images/logo.jpg'></image>
+    <image src='../../images/logo.jpg'></image>
   </view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class='form-item'>

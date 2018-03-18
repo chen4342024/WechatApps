@@ -3,13 +3,13 @@
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view wx:if="{{_id != -1}}" class='panel'>
       <view class='form-item J-form-status'>
-          <picker bindchange="bindPickerChange" data-range="followStatus" data-name="status" value="{{followStatusIndex}}" range="{{followStatus}}" range-key="text">
-            <view class='form-picker-wrap'>
-              <text class='form-label'>跟进情况</text>
-              <text class='form-control'>{{ followStatus[followStatusIndex].label || followStatus[followStatusIndex].text}}</text>
-            </view>
-          </picker>
-        </view>
+        <picker bindchange="bindPickerChange" data-range="followStatus" data-name="status" value="{{followStatusIndex}}" range="{{followStatus}}" range-key="text">
+          <view class='form-picker-wrap'>
+            <text class='form-label'>跟进情况</text>
+            <text class='form-control'>{{ followStatus[followStatusIndex].label || followStatus[followStatusIndex].text}}</text>
+          </view>
+        </picker>
+      </view>
     </view>
     <view class='panel'>
       <view class='form-item J-form-name {{validateStatus["name"]}}'>
@@ -29,9 +29,9 @@
       <view class='form-item J-form-address {{validateStatus["address"]}}'>
         <label>
           <text class='form-label'>工作单位</text>
-          <input class='form-control' placeholder="请填写工作单位信息" value='{{address}}' data-name='address' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+          <input class='form-control' placeholder="请填写工作单位信息" value='{{company_address}}' data-name='company_address' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
-        <text class="error-tip">{{validateMessage['address']}}</text>
+        <text class="error-tip">{{validateMessage['company_address']}}</text>
       </view>
       <view class='form-item J-form-phone {{validateStatus["phone"]}} '>
         <label class='no-bottom-border'>
@@ -41,12 +41,28 @@
         <text class="error-tip">{{validateMessage['phone']}}</text>
       </view>
     </view>
+
+    <!-- 征信 -->
+    <view class='panel'>
+      <view class='form-item J-form-credit'>
+        <view class='form-picker-wrap'>
+            <text class='form-label'>征信信息</text>
+          </view>
+      </view>
+      <view class='upload-container'>
+        <upload-item wx:for="{{credit_pictures}}" data-container='credit_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        </upload-item>
+        <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='credit_pictures'></view>
+      </view>
+    </view>
+
     <view class='panel'>
       <view class='form-item J-form-house_loan_period'>
         <picker bindchange="bindPickerChange" data-range="houseTypes" data-name="house_loan_period" value="{{houseTypesIndex}}" range="{{houseTypes}}" range-key='text'>
           <view class='form-picker-wrap'>
             <text class='form-label'>房产信息</text>
             <text class='form-control'>{{ houseTypes[houseTypesIndex].label || houseTypes[houseTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
           </view>
         </picker>
       </view>
@@ -62,6 +78,7 @@
           <view class='form-picker-wrap'>
             <text class='form-label'>保单信息</text>
             <text class='form-control'>{{ policyTypes[policyTypesIndex].label || policyTypes[policyTypesIndex].text}}</text>
+            <text class='customer-icon iconfont icon-enter'></text>
           </view>
         </picker>
       </view>
@@ -77,6 +94,7 @@
           <view class='form-picker-wrap'>
             <text class='form-label'>车</text>
             <text class='form-control'>{{ carTypes[carTypesIndex].label || carTypes[carTypesIndex].text}} 
+            <text class='customer-icon iconfont icon-enter'></text>
             </text>
           </view>
         </picker>

@@ -1,12 +1,14 @@
-// const origin = 'http://127.0.0.1:7001';
-const origin = 'http://192.168.1.105:7001';
+const origin = 'http://127.0.0.1:7001';
+// const origin = 'http://192.168.1.100:7001';
+// const origin = 'https://www.zshuiyin.com';
+
 
 
 const noop = () => { };
 const util = require('./util.js');
 
 
-function accountLogin(data, successCB = noop, errorCB = noop) {
+function accountLogin(data, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/account/login';
   let { userName, password } = data;
   return request({
@@ -39,13 +41,13 @@ function request(data) {
       } else {
         errorHandler(response);
       }
-    }
+    },
   }
   data.success = newData.success;
   return wx.request(data);
 }
 
-function putCustomer(data, successCB = noop, errorCB = noop) {
+function putCustomer(data, successCB = noop, errorCB = errorHandler) {
   const url = origin + `/api/v1/customers/${data._id}`;
   return request(authHeader({
     url: url,
@@ -57,7 +59,7 @@ function putCustomer(data, successCB = noop, errorCB = noop) {
 }
 
 
-function postCustomer(data, successCB = noop, errorCB = noop) {
+function postCustomer(data, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/customers';
   return request(authHeader({
     url: url,
@@ -68,7 +70,7 @@ function postCustomer(data, successCB = noop, errorCB = noop) {
   }));
 }
 
-function getCustomer(data, successCB = noop, errorCB = noop) {
+function getCustomer(data, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/customers';
   return request(authHeader({
     url: url,
@@ -79,7 +81,7 @@ function getCustomer(data, successCB = noop, errorCB = noop) {
   }));
 }
 
-function getCustomerById(id, successCB = noop, errorCB = noop) {
+function getCustomerById(id, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/customers/' + id;
   return request(authHeader({
     url: url,
@@ -90,7 +92,7 @@ function getCustomerById(id, successCB = noop, errorCB = noop) {
 }
 
 
-function deleteCustomerById(id, successCB = noop, errorCB = noop) {
+function deleteCustomerById(id, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/customers/' + id;
   return request(authHeader({
     url: url,
@@ -100,7 +102,7 @@ function deleteCustomerById(id, successCB = noop, errorCB = noop) {
   }));
 }
 
-function uploadFile(data, successCB = noop, errorCB = noop) {
+function uploadFile(data, successCB = noop, errorCB = errorHandler) {
   //图片上传的接口
   const url = origin + '/api/v1/upload';
   const { filePath } = data;
@@ -116,6 +118,11 @@ function uploadFile(data, successCB = noop, errorCB = noop) {
 
 
 function errorHandler(res) {
+  if(!res.statusCode){
+    util.showError('网络出错，请稍后再试！');
+    wx.hideLoading();
+    return;
+  }
   if (res.statusCode !== 200) {
     switch (res.statusCode) {
       case 401:
@@ -126,7 +133,11 @@ function errorHandler(res) {
       case 500:
         util.showError(res.data.message);
         break;
+      default: {
+        util.showError(res.data.message);
+      }
     }
+    wx.hideLoading();
   }
 }
 
@@ -148,7 +159,7 @@ function getPictureUrl(hash) {
   return `${origin}/api/v1/pictures/${hash}`;
 }
 
-function changePassword(data, successCB = noop, errorCB = noop) {
+function changePassword(data, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/users/change_password/';
   return request(authHeader({
     url: url,
@@ -159,7 +170,7 @@ function changePassword(data, successCB = noop, errorCB = noop) {
   }));
 }
 
-function getUserById(id, successCB = noop, errorCB = noop) {
+function getUserById(id, successCB = noop, errorCB = errorHandler) {
   const url = origin + '/api/v1/users/' + id;
   return request(authHeader({
     url: url,
@@ -167,6 +178,14 @@ function getUserById(id, successCB = noop, errorCB = noop) {
     success: successCB,
     fail: errorCB
   }));
+}
+
+function isDev(){
+  const reg = /https?:\/\/127\.0\.0\.1.*/;
+  if (reg.test(origin)){
+    return true;
+  }
+  return false;
 }
 
 module.exports = {
@@ -180,5 +199,6 @@ module.exports = {
   uploadFile: uploadFile,
   getPictureUrl: getPictureUrl,
   changePassword: changePassword,
-  getUserById: getUserById
+  getUserById: getUserById,
+  isDev:isDev
 }

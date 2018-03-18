@@ -47,6 +47,11 @@
   margin-left: -30rpx;
 }
 
+.empty-image-list{
+  color: #6b6b6b;
+  padding: 30rpx 0;
+}
+
 .preview-item{
   display: block;
   width: 210rpx;

@@ -1,3 +1,4 @@
+const noop = () => { };
 const formatDate = (date, format = "yyyy-MM-dd") => {
   var o = {
     "M+": date.getMonth() + 1, //month
@@ -38,7 +39,7 @@ const formatNumber = n => {
 }
 
 
-function showError(msg, callback) {
+function showError(msg = "", callback = noop) {
   wx.showModal({
     title: '错误提示',
     content: msg,
@@ -49,7 +50,7 @@ function showError(msg, callback) {
   });
 }
 
-function showAlert(msg, callback) {
+function showAlert(msg = "", callback = noop) {
   wx.showModal({
     title: '温馨提示',
     content: msg,

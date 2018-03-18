@@ -2,6 +2,7 @@
 //获取应用实例
 const app = getApp();
 const api = require('../../utils/api.js');
+const store = require('../../utils/store.js');
 
 Page({
   data: {

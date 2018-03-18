@@ -3,6 +3,7 @@
   <!-- <view class='home-bg'>
     <image class='home-bg-img' src='../../images/bg.jpg' mode="aspectFill"></image>
   </view> -->
+  <view class='dev-tip' wx:if="{{isDev}}">dev</view>
   <view class='home-front'>
     <view class='logo'>
        <image class='logo-img' src='../../images/logo.png' mode='aspectFit'></image>
@@ -34,14 +35,17 @@
           </view>
         </navigator>
       </view>
-      <view class='entrance company-entry light-green'>
+       <view class='entrance company-entry light-green'>
+        <view class="developing-mask">
+          <text>即将上线</text>
+        </view>
         <navigator url="/pages/company/company" hover-class="navigator-hover">
           <view class="entrance-content">
             <text class='iconfont icon-company_detail'></text>
             <text>公司介绍</text>
           </view>
         </navigator>
-      </view>
+      </view> 
     </view>
   </view>
 </view>
