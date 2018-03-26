@@ -1,7 +1,6 @@
-const origin = 'http://127.0.0.1:7001';
-// const origin = 'http://192.168.1.100:7001';
+// const origin = 'http://127.0.0.1:7001';
+const origin = 'http://192.168.1.100:7001';
 // const origin = 'https://www.zshuiyin.com';
-
 
 
 const noop = () => { };

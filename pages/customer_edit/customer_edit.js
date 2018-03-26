@@ -15,6 +15,7 @@ let defaultData = {
   card_number: '',
   company_address: '',
   phone: '',
+  remark: '',
   house_loan_period: '',
   car_loan_period: '',
   policy_loan_period: '',
@@ -41,6 +42,7 @@ Page({
     card_number: '',
     company_address: '',
     phone: '',
+    remark: '',
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
@@ -96,12 +98,12 @@ Page({
       houseTypes, policyTypes, carTypes
     } = this.data;
 
-    let { _id, name, card_number, company_address, phone,
+    let { _id, name, card_number, company_address, phone,remark,
       house_loan_period, car_loan_period, policy_loan_period,
-      house_pictures, car_pictures, policy_pictures, credit_pictures,status
+      house_pictures, car_pictures, policy_pictures, credit_pictures, status
     } = customer;
     this.setData({
-      _id, name, card_number, company_address, phone,
+      _id, name, card_number, company_address, phone, remark,
       house_loan_period, car_loan_period, policy_loan_period,
       status,
       house_pictures: this.mapUploadItem(house_pictures),
@@ -277,8 +279,10 @@ Page({
     let value = e.detail.value;
     let name = e.currentTarget.dataset.name;
     let configList = validateConfig[name];
-    let result = validateUtil.validate(configList, value);
-    this.handleValidateResult(name, result);
+    if (configList){
+      let result = validateUtil.validate(configList, value);
+      this.handleValidateResult(name, result);
+    }
   },
 
   // 绑定input聚焦
@@ -341,6 +345,7 @@ Page({
       card_number: this.data.card_number,
       company_address: this.data.company_address,
       phone: this.data.phone,
+      remark:this.data.remark,
       house_loan_period: this.data.house_loan_period,
       car_loan_period: this.data.car_loan_period,
       policy_loan_period: this.data.policy_loan_period,

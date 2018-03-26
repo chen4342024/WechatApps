@@ -34,11 +34,17 @@
         <text class="error-tip">{{validateMessage['company_address']}}</text>
       </view>
       <view class='form-item J-form-phone {{validateStatus["phone"]}} '>
-        <label class='no-bottom-border'>
+        <label>
           <text class='form-label'>联系方式</text>
           <input class='form-control' placeholder="请输入手机号码" value='{{phone}}' data-name='phone' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
         <text class="error-tip">{{validateMessage['phone']}}</text>
+      </view>
+      <view class='form-item J-form-remark '>
+        <label class='no-bottom-border'>
+          <text class='form-label'>备注</text>
+          <input class='form-control' placeholder="请输入备注" value='{{remark}}' data-name='remark' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+        </label>
       </view>
     </view>
 

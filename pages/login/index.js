@@ -56,7 +56,9 @@ Page({
     if (validate.result) {
       let { userName, password } = this.data;
       let data = { userName, password };
+      wx.showLoading({ mask: true, title: "登陆中" });
       api.accountLogin(data,(res)=>{
+        wx.hideLoading();
         if(res.status === 0){
           let token = res.data.token;
           wx.setStorageSync('token', token);
