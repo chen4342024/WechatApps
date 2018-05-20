@@ -5,6 +5,14 @@
       <text class='item-label'>跟进情况</text>
       <text class='item-value'>{{customer.statusText}}</text>
     </view>
+    <view class='info-item ' wx:if="{{customer.status == followStatusFunded}}">
+      <text class='item-label'>放款时间</text>
+      <text class='item-value'>{{customer.lendingDateText}}</text>
+    </view>
+    <view class='info-item' wx:if="{{customer.status == followStatusFunded}}">
+      <text class='item-label'>放款期数</text>
+      <text class='item-value'>{{customer.lendingPeriodText}}</text>
+    </view>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>跟进人</text>
       <text class='item-value'>{{customer.auth_user && customer.auth_user.name}}</text>
@@ -21,7 +29,7 @@
     </view>
     <view class='info-item'>
       <text class='item-label'>工作单位</text>
-      <text class='item-value'>{{customer.company_address}}</text>
+      <text class='item-value'>{{customer.company_address || ''}}</text>
     </view>
     <view class='info-item'>
       <text class='item-label'>联系方式</text>
@@ -29,7 +37,7 @@
     </view>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>备注</text>
-      <text class='item-value'>{{customer.remark}}</text>
+      <text class='item-value muti-line'>{{customer.remark || ''}}</text>
     </view>
   </view>
   <view class='panel'>

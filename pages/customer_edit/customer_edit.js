@@ -20,6 +20,8 @@ let defaultData = {
   car_loan_period: '',
   policy_loan_period: '',
   status: 1,
+  lending_date: '',
+  lending_period: '',
 
   credit_pictures: [],
   house_pictures: [],
@@ -30,6 +32,8 @@ let defaultData = {
   policyTypesIndex: 0,
   carTypesIndex: 0,
   followStatusIndex: 0,
+  lendingPeriodTypesIndex: 0,
+
 
   validateMessage: {},
   validateStatus: {},
@@ -51,9 +55,12 @@ Page({
     car_pictures: [],
     policy_pictures: [],
     status: 1,
+    lending_date: '',
+    lending_period: '',
 
     followStatus: globalData.followStatus,
     followStatusIndex: 0,
+    followStatusFunded: globalData.followStatusCode.FUNDED,
 
     houseTypes: globalData.houseInfoEnum,
     houseTypesIndex: 0,
@@ -61,8 +68,12 @@ Page({
     policyTypes: globalData.policyTypesEnum,
     policyTypesIndex: 0,
 
+    lendingPeriodTypes: globalData.lendingPeriodTypesEnum,
+    lendingPeriodTypesIndex: 0,
+
     carTypes: globalData.carTypeEnum,
     carTypesIndex: 0,
+
 
     validateConfig: {},
     validateMessage: {},
@@ -95,17 +106,19 @@ Page({
   setDataByCustomer: function (customer) {
     let {
       followStatus,
-      houseTypes, policyTypes, carTypes
+      houseTypes, policyTypes, carTypes, lendingPeriodTypes
     } = this.data;
 
-    let { _id, name, card_number, company_address, phone,remark,
+    let { _id, name, card_number, company_address, phone, remark,
       house_loan_period, car_loan_period, policy_loan_period,
-      house_pictures, car_pictures, policy_pictures, credit_pictures, status
+      house_pictures, car_pictures, policy_pictures, credit_pictures, status, lending_date, lending_period
     } = customer;
     this.setData({
       _id, name, card_number, company_address, phone, remark,
       house_loan_period, car_loan_period, policy_loan_period,
       status,
+      lending_date: lending_date ? util.formatDate(new Date(lending_date)) : '',
+      lending_period: lending_period || '',
       house_pictures: this.mapUploadItem(house_pictures),
       credit_pictures: this.mapUploadItem(credit_pictures),
       car_pictures: this.mapUploadItem(car_pictures),
@@ -114,6 +127,7 @@ Page({
       houseTypesIndex: globalData.findIndex(house_loan_period, houseTypes),
       policyTypesIndex: globalData.findIndex(policy_loan_period, policyTypes),
       carTypesIndex: globalData.findIndex(car_loan_period, carTypes),
+      lendingPeriodTypesIndex: globalData.findIndex(lending_period, lendingPeriodTypes)
     });
   },
 
@@ -143,7 +157,7 @@ Page({
     var that = this;
     wx.chooseImage({
       count: 9 - itemList.length, // 最多可以选择的图片张数，默认9
-      sizeType: ['original', 'compressed'], // original 原图，compressed 压缩图，默认二者都有
+      sizeType: ['compressed'], // original 原图，compressed 压缩图，默认二者都有
       sourceType: ['album', 'camera'], // album 从相册选图，camera 使用相机，默认二者都有
       success: function (res) {
         var imgsrcList = res.tempFilePaths;
@@ -238,6 +252,19 @@ Page({
       [`${rangeStr}Index`]: e.detail.value,
       [name]: range[e.detail.value].code
     });
+    let { validateConfig } = this.data;
+    let configList = validateConfig[name];
+    if (configList) {
+      let result = validateUtil.validate(configList, range[e.detail.value].code);
+      this.handleValidateResult(name, result);
+    }
+  },
+
+  bindDateChange: function (e) {
+    let name = e.currentTarget.dataset.name;
+    this.setData({
+      [name]: e.detail.value
+    });
   },
 
 
@@ -279,7 +306,7 @@ Page({
     let value = e.detail.value;
     let name = e.currentTarget.dataset.name;
     let configList = validateConfig[name];
-    if (configList){
+    if (configList) {
       let result = validateUtil.validate(configList, value);
       this.handleValidateResult(name, result);
     }
@@ -311,7 +338,28 @@ Page({
     validateConfig['phone'] = [
       { validate: validateUtil.required, msg: "请输入联系方式" },
     ];
+    validateConfig['lending_date'] = [
+      {
+        validate: this.checkFundedRequire.bind(this), msg: "请选择放款时间"
+      },
+    ];
+    validateConfig['lending_period'] = [
+      {
+        validate: this.checkPeriodRequire.bind(this), msg: "请选择放款期数"
+      },
+    ];
   },
+
+  checkFundedRequire(value = "") {
+    let { followStatusIndex, followStatusFunded } = this.data;
+    return followStatusIndex != followStatusFunded || value.length > 0;
+  },
+
+  checkPeriodRequire(value = "") {
+    let { followStatusIndex, followStatusFunded } = this.data;
+    return followStatusIndex != followStatusFunded || value != '-1';
+  },
+
 
   // 获取图片item的hash值以便提交
   getUploadItemHashList(itemList = []) {
@@ -334,18 +382,39 @@ Page({
     }
   },
 
+  isAllPictureDone() {
+    let { credit_pictures = [], house_pictures = [], car_pictures = [], policy_pictures = [] } = this.data;
+    let pictureList = [...credit_pictures, ...house_pictures, ...car_pictures, ...policy_pictures];
+    let unDonePictures = pictureList.filter((item) => {
+      return item.status !== UploadItem.STATUS.done;
+    });
+    return unDonePictures.length === 0;
+  },
+
   // 提交表单
   onSubmit: function (e) {
     if (!this.validate()) {
       this.scrollToFirstError();
       return;
     }
+    if (!this.isAllPictureDone()) {
+      util.showConfirm("有些图片未上传完成，确定提交 ？", (res)=> {
+        if (res.confirm) {
+          this.postSubmit();
+        }
+      });
+    } else {
+      this.postSubmit();
+    }
+  },
+
+  postSubmit: function () {
     let data = {
       name: this.data.name,
       card_number: this.data.card_number,
       company_address: this.data.company_address,
       phone: this.data.phone,
-      remark:this.data.remark,
+      remark: this.data.remark,
       house_loan_period: this.data.house_loan_period,
       car_loan_period: this.data.car_loan_period,
       policy_loan_period: this.data.policy_loan_period,
@@ -353,8 +422,11 @@ Page({
       house_pictures: this.getUploadItemHashList(this.data.house_pictures),
       car_pictures: this.getUploadItemHashList(this.data.car_pictures),
       policy_pictures: this.getUploadItemHashList(this.data.policy_pictures),
-      status: this.data.status
+      status: this.data.status,
+      lending_date: this.data.lending_date,
+      lending_period: this.data.lending_period
     };
+
     if (this.data._id && this.data._id.length > 0) {
       data._id = this.data._id;
       let self = this;
@@ -385,6 +457,5 @@ Page({
         }
       });
     }
-
   }
 })

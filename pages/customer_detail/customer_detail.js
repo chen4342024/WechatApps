@@ -13,14 +13,15 @@ Page({
     houseTypes: globalData.houseInfoEnum,
     policyTypes: globalData.policyTypesEnum,
     carTypes: globalData.carTypeEnum,
+    lendingPeriodTypes: globalData.lendingPeriodTypesEnum,
     id: 0,
-
+    followStatusFunded: globalData.followStatusCode.FUNDED,
   },
 
   mapCustomer: function (customer) {
     let {
       followStatus,
-      houseTypes, policyTypes, carTypes
+      houseTypes, policyTypes, carTypes, lendingPeriodTypes
      } = this.data;
     let getText = function (code, data) {
       let filterData = globalData.findByCode(code, data);
@@ -31,6 +32,8 @@ Page({
       houceLoanPeriodText: getText(customer.house_loan_period, houseTypes),
       carLoanPeriodText: getText(customer.car_loan_period, carTypes),
       policyLoanPeriodText: getText(customer.policy_loan_period, policyTypes),
+      lendingPeriodText: getText(customer.lending_period, lendingPeriodTypes),
+      lendingDateText: customer.lending_date ? util.formatDate(new Date(customer.lending_date)) : '',
 
       creditPicturesUrl: this.getUrl(customer.credit_pictures),
       housePicturesUrl: this.getUrl(customer.house_pictures),

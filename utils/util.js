@@ -61,6 +61,16 @@ function showAlert(msg = "", callback = noop) {
   });
 }
 
+function showConfirm(msg = "", callback = noop) {
+  wx.showModal({
+    title: '温馨提示',
+    content: msg,
+    confirmText: '确定',
+    confirmColor: '#1AAD19',
+    success: callback
+  });
+}
+
 /**
  * 获取节点相对于viewport的位置
  */
@@ -98,5 +108,6 @@ module.exports = {
   showError: showError,
   showAlert: showAlert,
   getElementScollOffset,
-  scrollTo
+  scrollTo,
+  showConfirm
 }

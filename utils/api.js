@@ -1,5 +1,5 @@
 // const origin = 'http://127.0.0.1:7001';
-const origin = 'http://192.168.1.100:7001';
+const origin = 'http://192.168.1.102:7001';
 // const origin = 'https://www.zshuiyin.com';
 
 
@@ -181,7 +181,8 @@ function getUserById(id, successCB = noop, errorCB = errorHandler) {
 
 function isDev(){
   const reg = /https?:\/\/127\.0\.0\.1.*/;
-  if (reg.test(origin)){
+  const reg2 = /https?:\/\/192\.168\.1\.100.*/;
+  if (reg.test(origin) || reg2.test(origin)){
     return true;
   }
   return false;

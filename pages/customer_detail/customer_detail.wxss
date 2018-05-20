@@ -18,6 +18,8 @@
   border-bottom: 1px solid #d3d3d3;
   display: flex;
   font-size: 28rpx;
+  min-height: 90rpx;
+  line-height: 90rpx;
 }
 
 .no-bottom-border {
@@ -25,17 +27,19 @@
 }
 
 .item-label {
-  height: 100rpx;
-  line-height: 100rpx;
   flex-basis: 200rpx;
   color: #aeaeae;
 }
 
 .item-value {
   flex: 1;
-  height: 100rpx;
-  line-height: 100rpx;
   color: #6b6b6b;
+}
+
+.muti-line{
+  height: auto;
+  line-height:44rpx;
+  padding-top:20rpx;
 }
 
 

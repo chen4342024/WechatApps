@@ -10,6 +10,26 @@
           </view>
         </picker>
       </view>
+      <view wx:if="{{followStatusIndex == followStatusFunded}}">
+        <view class='form-item J-form-lending_date {{validateStatus["lending_date"]}}' >
+          <picker bindchange="bindDateChange" data-name="lending_date" value="{{lending_date}}" mode="date">
+            <view class='form-picker-wrap'>
+              <text class='form-label'>放款时间</text>
+              <text class='form-control'>{{lending_date}}</text>
+            </view>
+          </picker>
+          <text class="error-tip">{{validateMessage['lending_date']}}</text>
+        </view>
+        <view class='form-item J-form-lending_period {{validateStatus["lending_period"]}}'>
+          <picker bindchange="bindPickerChange" data-range="lendingPeriodTypes" data-name="lending_period" value="{{lendingPeriodTypesIndex}}" range="{{lendingPeriodTypes}}" range-key="text">
+            <view class='form-picker-wrap'>
+              <text class='form-label'>放款期数</text>
+              <text class='form-control'>{{ lendingPeriodTypes[lendingPeriodTypesIndex].label || lendingPeriodTypes[lendingPeriodTypesIndex].text}}</text>
+            </view>
+          </picker>
+          <text class="error-tip">{{validateMessage['lending_period']}}</text>
+        </view>
+      </view>
     </view>
     <view class='panel'>
       <view class='form-item J-form-name {{validateStatus["name"]}}'>
@@ -52,8 +72,8 @@
     <view class='panel'>
       <view class='form-item J-form-credit'>
         <view class='form-picker-wrap'>
-            <text class='form-label'>征信信息</text>
-          </view>
+          <text class='form-label'>征信信息</text>
+        </view>
       </view>
       <view class='upload-container'>
         <upload-item wx:for="{{credit_pictures}}" data-container='credit_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
@@ -79,22 +99,6 @@
       </view>
     </view>
     <view class='panel'>
-      <view class='form-item J-form-policy_loan_period'>
-        <picker bindchange="bindPickerChange" data-range="policyTypes" data-name="policy_loan_period" value="{{policyTypesIndex}}" range="{{policyTypes}}" range-key="text">
-          <view class='form-picker-wrap'>
-            <text class='form-label'>保单信息</text>
-            <text class='form-control'>{{ policyTypes[policyTypesIndex].label || policyTypes[policyTypesIndex].text}}</text>
-            <text class='customer-icon iconfont icon-enter'></text>
-          </view>
-        </picker>
-      </view>
-      <view class='upload-container'>
-        <upload-item wx:for="{{policy_pictures}}" data-container='policy_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
-        </upload-item>
-        <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='policy_pictures'></view>
-      </view>
-    </view>
-    <view class='panel'>
       <view class='form-item J-form-car_loan_period'>
         <picker bindchange="bindPickerChange" data-range="carTypes" data-name="car_loan_period" value="{{carTypesIndex}}" range="{{carTypes}}" range-key='text'>
           <view class='form-picker-wrap'>
@@ -111,6 +115,23 @@
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='car_pictures'></view>
       </view>
     </view>
+    <view class='panel'>
+      <view class='form-item J-form-policy_loan_period'>
+        <picker bindchange="bindPickerChange" data-range="policyTypes" data-name="policy_loan_period" value="{{policyTypesIndex}}" range="{{policyTypes}}" range-key="text">
+          <view class='form-picker-wrap'>
+            <text class='form-label'>保单信息</text>
+            <text class='form-control'>{{ policyTypes[policyTypesIndex].label || policyTypes[policyTypesIndex].text}}</text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
+      </view>
+      <view class='upload-container'>
+        <upload-item wx:for="{{policy_pictures}}" data-container='policy_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        </upload-item>
+        <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='policy_pictures'></view>
+      </view>
+    </view>
+    
     <button class='submit-btn' type="primary" loading="{{false}}" bindtap="onSubmit"> 提交 </button>
   </form>
 </view>

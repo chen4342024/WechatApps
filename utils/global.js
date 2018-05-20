@@ -28,12 +28,29 @@ const policyTypesEnum = [
   { code: 6, text: "保单供断" },
 ];
 
+const lendingPeriodTypesEnum = [
+  { code: -1, text: "请选择", label: "选择期数" },
+  { code: 12, text: "12期" },
+  { code: 24, text: "24期" },
+  { code: 36, text: "36期" },
+];
+
+
+const followStatusCode = {
+  FOLLOWING: 1, // 跟进中
+  NEGOTIATION: 2, // 约见洽谈
+  CONTRACT: 3, // 签订合同
+  FUNDED: 4, // 已放款
+  REJECT: 5, // 已拒绝
+};
+
 const followStatus = [
   { code: -1, text: "请选择" },
   { code: 1, text: "跟进中" },
   { code: 2, text: "约见洽谈" },
   { code: 3, text: "签订合同" },
   { code: 4, text: "已放款" },
+  { code: 5, text: "已拒绝" },
 ];
 
 const genderEnum = [
@@ -62,7 +79,9 @@ module.exports = {
   carTypeEnum,
   policyTypesEnum,
   followStatus,
+  followStatusCode,
   findByCode: findByCode,
   findIndex,
-  genderEnum
+  genderEnum,
+  lendingPeriodTypesEnum
 };
