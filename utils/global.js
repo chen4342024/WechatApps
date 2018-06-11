@@ -2,6 +2,7 @@
 //房产信息
 const houseInfoEnum = [
   { code: -1, text: "不限", label: "选择房产" },
+  { code: 8, text: '无' },
   { code: 1, text: '供房1~3个月' },
   { code: 2, text: '供房3~6个月' },
   { code: 3, text: '供房6~12个月' },
@@ -13,6 +14,7 @@ const houseInfoEnum = [
 
 const carTypeEnum = [
   { code: -1, text: "请选择", label: "选择车辆" },
+  { code: 4, text: '无' },
   { code: 1, text: "供车6~12个月" },
   { code: 2, text: "供车1~3年" },
   { code: 3, text: "车子买断" }
@@ -20,6 +22,7 @@ const carTypeEnum = [
 
 const policyTypesEnum = [
   { code: -1, text: "请选择", label: "选择保单" },
+  { code: 7, text: '无' },
   { code: 1, text: "保单3~6个月" },
   { code: 2, text: "保单6~12个月" },
   { code: 3, text: "保单1~2年" },
@@ -42,6 +45,7 @@ const followStatusCode = {
   CONTRACT: 3, // 签订合同
   FUNDED: 4, // 已放款
   REJECT: 5, // 已拒绝
+  AUDITED: 6 // 已初审
 };
 
 const followStatus = [
@@ -51,11 +55,19 @@ const followStatus = [
   { code: 3, text: "签订合同" },
   { code: 4, text: "已放款" },
   { code: 5, text: "已拒绝" },
+  { code: 6, text: "已初审" },
 ];
 
 const genderEnum = [
   { code: 0, text: "女" },
   { code: 1, text: "男" }
+];
+
+const businessLicenseTypeEnum = [
+  { value: 4, name: "无" },
+  { value: 1, name: "1年以内" },
+  { value: 2, name: "1~2年" },
+  { value: 3, name: "2年以上" }
 ];
 
 function findByCode(code, data) {
