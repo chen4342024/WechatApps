@@ -11,7 +11,7 @@
         </picker>
       </view>
       <view wx:if="{{followStatusIndex == followStatusFunded}}">
-        <view class='form-item J-form-lending_date {{validateStatus["lending_date"]}}' >
+        <view class='form-item J-form-lending_date {{validateStatus["lending_date"]}}'>
           <picker bindchange="bindDateChange" data-name="lending_date" value="{{lending_date}}" mode="date">
             <view class='form-picker-wrap'>
               <text class='form-label'>放款时间</text>
@@ -61,10 +61,47 @@
         <text class="error-tip">{{validateMessage['phone']}}</text>
       </view>
       <view class='form-item J-form-remark '>
-        <label class='no-bottom-border'>
+        <label class=''>
           <text class='form-label'>备注</text>
           <input class='form-control' placeholder="请输入备注" value='{{remark}}' data-name='remark' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
+      </view>
+      <view class='form-item J-form-remark '>
+        <label class='no-bottom-border'>
+          <text class='form-label'>渠道编码(选填)</text>
+          <input class='form-control' placeholder="请输入渠道编码" value='{{channel_number}}' data-name='channel_number' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+        </label>
+      </view>
+    </view>
+
+    <view class='panel'>
+      <view class='form-item J-form-house_loan_period'>
+
+        <picker bindchange="bindPickerChange" data-range="businessLicenseTypes" data-name="business_license" value="{{businessLicenseTypesIndex}}" range="{{businessLicenseTypes}}" range-key='text'>
+          <view class='form-picker-wrap '>
+            <text class='form-label'>营业执照</text>
+            <text class='form-control'>{{ businessLicenseTypes[businessLicenseTypesIndex].label || businessLicenseTypes[businessLicenseTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
+      </view>
+      <view class='form-item J-form-house_loan_period'>
+        <picker bindchange="bindPickerChange" data-range="socialSecurityTypes" data-name="social_security" value="{{socialSecurityTypesIndex}}" range="{{socialSecurityTypes}}" range-key='text'>
+          <view class='form-picker-wrap '>
+            <text class='form-label'>社保</text>
+            <text class='form-control'>{{ socialSecurityTypes[socialSecurityTypesIndex].label || socialSecurityTypes[socialSecurityTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
+      </view>
+      <view class='form-item J-form-house_loan_period'>
+        <picker bindchange="bindPickerChange" data-range="accumulationFundsTypes" data-name="accumulation_funds" value="{{accumulationFundsTypesIndex}}" range="{{accumulationFundsTypes}}" range-key='text'>
+          <view class='form-picker-wrap no-bottom-border'>
+            <text class='form-label'>公积金</text>
+            <text class='form-control'>{{ accumulationFundsTypes[accumulationFundsTypesIndex].label || accumulationFundsTypes[accumulationFundsTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
       </view>
     </view>
 
@@ -131,7 +168,7 @@
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='policy_pictures'></view>
       </view>
     </view>
-    
+
     <button class='submit-btn' type="primary" loading="{{false}}" bindtap="onSubmit"> 提交 </button>
   </form>
 </view>

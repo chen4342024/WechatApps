@@ -64,10 +64,23 @@ const genderEnum = [
 ];
 
 const businessLicenseTypeEnum = [
-  { value: 4, name: "无" },
-  { value: 1, name: "1年以内" },
-  { value: 2, name: "1~2年" },
-  { value: 3, name: "2年以上" }
+  { code: -1, text: "请选择" },
+  { code: 4, text: "无" },
+  { code: 1, text: "1年以内" },
+  { code: 2, text: "1~2年" },
+  { code: 3, text: "2年以上" }
+];
+
+const socialSecurityTypeEnum = [
+  { code: -1, text: "请选择" },
+  { code: 1, text: '无' },
+  { code: 2, text: '有' },
+];
+
+const accumulationFundsTypeEnum = [
+  { code: -1, text: "请选择" },
+  { code: 1, text: '无' },
+  { code: 2, text: '有' },
 ];
 
 function findByCode(code, data) {
@@ -95,5 +108,8 @@ module.exports = {
   findByCode: findByCode,
   findIndex,
   genderEnum,
-  lendingPeriodTypesEnum
+  lendingPeriodTypesEnum,
+  businessLicenseTypeEnum,
+  socialSecurityTypeEnum,
+  accumulationFundsTypeEnum
 };

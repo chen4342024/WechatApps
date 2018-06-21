@@ -46,7 +46,7 @@
 .form-label {
   height: 100rpx;
   line-height: 100rpx;
-  flex-basis: 200rpx;
+  flex-basis: 210rpx;
 }
 
 .form-control {

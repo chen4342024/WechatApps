@@ -57,6 +57,10 @@ Page({
     status: 1,
     lending_date: '',
     lending_period: '',
+    social_security: '',
+    accumulation_funds: '',
+    channel_number: '',
+    business_license: '',
 
     followStatus: globalData.followStatus,
     followStatusIndex: 0,
@@ -74,6 +78,14 @@ Page({
     carTypes: globalData.carTypeEnum,
     carTypesIndex: 0,
 
+    businessLicenseTypes: globalData.businessLicenseTypeEnum,
+    businessLicenseTypesIndex: 0,
+
+    socialSecurityTypes: globalData.socialSecurityTypeEnum,
+    socialSecurityTypesIndex: 0,
+
+    accumulationFundsTypes: globalData.accumulationFundsTypeEnum,
+    accumulationFundsTypesIndex: 0,
 
     validateConfig: {},
     validateMessage: {},
@@ -106,16 +118,21 @@ Page({
   setDataByCustomer: function (customer) {
     let {
       followStatus,
-      houseTypes, policyTypes, carTypes, lendingPeriodTypes
+      houseTypes, policyTypes, carTypes, lendingPeriodTypes,
+      businessLicenseTypes, socialSecurityTypes, accumulationFundsTypes
     } = this.data;
 
     let { _id, name, card_number, company_address, phone, remark,
       house_loan_period, car_loan_period, policy_loan_period,
-      house_pictures, car_pictures, policy_pictures, credit_pictures, status, lending_date, lending_period
+      house_pictures, car_pictures, policy_pictures, credit_pictures, status, lending_date, lending_period,
+      business_license, social_security, accumulation_funds, channel_number
     } = customer;
     this.setData({
-      _id, name, card_number, company_address, phone, remark,
-      house_loan_period, car_loan_period, policy_loan_period,
+      _id, name, card_number, company_address, phone, remark, channel_number,
+      house_loan_period, car_loan_period, policy_loan_period, social_security,
+      accumulation_funds,
+      channel_number,
+      business_license,
       status,
       lending_date: lending_date ? util.formatDate(new Date(lending_date)) : '',
       lending_period: lending_period || '',
@@ -127,7 +144,10 @@ Page({
       houseTypesIndex: globalData.findIndex(house_loan_period, houseTypes),
       policyTypesIndex: globalData.findIndex(policy_loan_period, policyTypes),
       carTypesIndex: globalData.findIndex(car_loan_period, carTypes),
-      lendingPeriodTypesIndex: globalData.findIndex(lending_period, lendingPeriodTypes)
+      lendingPeriodTypesIndex: globalData.findIndex(lending_period, lendingPeriodTypes),
+      businessLicenseTypesIndex: globalData.findIndex(business_license, businessLicenseTypes),
+      socialSecurityTypesIndex: globalData.findIndex(social_security, socialSecurityTypes),
+      accumulationFundsTypesIndex: globalData.findIndex(accumulation_funds, accumulationFundsTypes),
     });
   },
 
@@ -398,7 +418,7 @@ Page({
       return;
     }
     if (!this.isAllPictureDone()) {
-      util.showConfirm("有些图片未上传完成，确定提交 ？", (res)=> {
+      util.showConfirm("有些图片未上传完成，确定提交 ？", (res) => {
         if (res.confirm) {
           this.postSubmit();
         }
@@ -415,6 +435,11 @@ Page({
       company_address: this.data.company_address,
       phone: this.data.phone,
       remark: this.data.remark,
+      social_security: this.data.social_security,
+      accumulation_funds: this.data.accumulation_funds,
+      channel_number: this.data.channel_number,
+      business_license: this.data.business_license,
+
       house_loan_period: this.data.house_loan_period,
       car_loan_period: this.data.car_loan_period,
       policy_loan_period: this.data.policy_loan_period,
