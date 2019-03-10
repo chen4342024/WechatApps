@@ -1,6 +1,6 @@
-// const origin = 'http://127.0.0.1:7001';
+const origin = 'http://127.0.0.1:7001';
 // const origin = 'http://192.168.1.102:7001';
-const origin = 'https://www.zshuiyin.com';
+// const origin = 'https://www.zshuiyin.com';
 
 
 const noop = () => { };
@@ -179,6 +179,16 @@ function getUserById(id, successCB = noop, errorCB = errorHandler) {
   }));
 }
 
+function getFollowUser(successCB = noop, errorCB = errorHandler){
+  const url = origin + '/api/v1/users/query';
+  return request(authHeader({
+    url: url,
+    method: 'GET',
+    success: successCB,
+    fail: errorCB
+  }));
+}
+
 function isDev(){
   const reg = /https?:\/\/127\.0\.0\.1.*/;
   const reg2 = /https?:\/\/192\.168\.1\.100.*/;
@@ -200,5 +210,6 @@ module.exports = {
   getPictureUrl: getPictureUrl,
   changePassword: changePassword,
   getUserById: getUserById,
-  isDev:isDev
+  isDev:isDev,
+  getFollowUser: getFollowUser
 }

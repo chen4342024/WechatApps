@@ -4,7 +4,9 @@
     <view class='search-label'>
       <text class='search-icon iconfont icon-search'></text>
       <input type='text' class='search-bar-input' data-name="search" placeholder='搜索' value="{{search}}" confirm-type='search' bindinput="bindInputChange" bindconfirm="bindSearch"></input>
-      <view bindtap="bindDeleteSearch" class='delete-icon'><text class='iconfont icon-close'></text></view>
+      <view bindtap="bindDeleteSearch" class='delete-icon'>
+        <text class='iconfont icon-close'></text>
+      </view>
     </view>
   </view>
   <view class='filter-bar'>
@@ -37,6 +39,34 @@
       </picker>
     </view>
   </view>
+  <view class='filter-bar filter-bar-2'>
+    <view class='filter-item'>
+      <picker mode="selector" value='{{followPeopleIndex}}' data-range="followPeople" data-name="auth_user" range='{{followPeople}}' range-key="text" bindchange='bindPickerChange'>
+        <view class='form-picker-wrap'>
+          <text class=''>{{followPeople[followPeopleIndex].label || followPeople[followPeopleIndex].text }}<text class='iconfont icon-arrow-down'></text>
+          </text>
+        </view>
+      </picker>
+    </view>
+    <view class='filter-item'>
+      <picker mode="selector" value='{{socialSecurityIndex}}' data-range="socialSecurity" data-name="social_security" range='{{socialSecurity}}' range-key="text" bindchange='bindPickerChange'>
+        <view class='form-picker-wrap'>
+          <text class=''>{{socialSecurity[socialSecurityIndex].label || socialSecurity[socialSecurityIndex].text }}<text class='iconfont icon-arrow-down'></text>
+          </text>
+        </view>
+      </picker>
+    </view>
+    <view class='filter-item'>
+      <picker mode="selector" value='{{accumulationFundsIndex}}' data-range="accumulationFunds" data-name="accumulation_funds" range='{{accumulationFunds}}' range-key="text" bindchange='bindPickerChange'>
+        <view class='form-picker-wrap'>
+          <text class=''>{{accumulationFunds[accumulationFundsIndex].label || accumulationFunds[accumulationFundsIndex].text }}<text class='iconfont icon-arrow-down'></text>
+          </text>
+        </view>
+      </picker>
+    </view>
+    
+
+  </view>
   <view class='search-result'>
     <navigator wx:for="{{customerList}}" url="/pages/customer_detail/customer_detail?id={{item._id}}" hover-class="navigator-hover">
       <view class="customer-item">
@@ -48,6 +78,6 @@
     <view class="bottom-tip" wx:if="{{hasNext}}">加载中
       <image class='loading-image' src='../../images/loading.gif'></image>
     </view>
-     <text class="bottom-tip" wx:if="{{!hasNext}}">没有更多数据了</text> 
+    <text class="bottom-tip" wx:if="{{!hasNext}}">没有更多数据了</text>
   </view>
 </view>

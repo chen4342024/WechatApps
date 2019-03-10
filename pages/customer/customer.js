@@ -7,13 +7,20 @@ const util = require('../../utils/util.js');
 const route = require('../../utils/route.js');
 const store = require('../../utils/store.js');
 
+const followUserEmptyEnum = [
+  { code: -1, text: "请选择", label: '请选择跟进人' },
+];
+
 Page({
   data: {
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
-    status:'',
+    status: '',
+    auth_user: '',
     search: '',
+    social_security: '',
+    accumulation_funds: '',
 
     houseTypes: globalData.houseInfoEnum,
     houseTypesIndex: 0,
@@ -26,6 +33,15 @@ Page({
 
     followStatus: globalData.followStatus,
     followStatusIndex: 0,
+
+    followPeople: followUserEmptyEnum,
+    followPeopleIndex: 0,
+
+    socialSecurity: globalData.socialSecurityTypeEnum,
+    socialSecurityIndex: 0,
+
+    accumulationFunds: globalData.accumulationFundsTypeEnum,
+    accumulationFundsIndex: 0,
 
     customerList: [],
     currentPage: 0,
@@ -96,12 +112,14 @@ Page({
       globalToken: store.get('token')
     });
   },
+
+
   onShow: function () {
     let storeToken = store.get('token');
     let isSameUser = storeToken === this.data.globalToken;
     let param = route.getParam();
 
-    if(!isSameUser){
+    if (!isSameUser) {
       this.data.globalToken = storeToken;
     }
 
@@ -109,6 +127,7 @@ Page({
       route.resetParam();
       this.resetSearchResult();
       this.getCustomer();
+      this.getFollowUser();
     }
     console.log("index page show");
   },
@@ -121,12 +140,37 @@ Page({
   //   this.getCustomer();
   // },
 
+  getFollowUser: function () {
+    api.getFollowUser((res) => {
+      if (res.status === 0) {
+        this.setData({
+          followPeople: this.mapFollowUser(res.data)
+        });
+      } else {
+        util.showError(res.message);
+      }
+    });
+  },
+
+  mapFollowUser: function (data) {
+    if (data) {
+      let list = data.map((user) => {
+        return { code: user._id, text: user.name };
+      });
+      return [...followUserEmptyEnum, ...list];
+    }
+    return followUserEmptyEnum;
+  },
+
   getCustomer: function () {
-    let { search, currentPage, house_loan_period, car_loan_period, policy_loan_period, status } = this.data;
+    let {
+      search, currentPage, house_loan_period, car_loan_period,
+      policy_loan_period, status, auth_user, social_security, accumulation_funds
+    } = this.data;
     let query = {
       currentPage: currentPage,
     }
-    if (house_loan_period && house_loan_period != '-1'){
+    if (house_loan_period && house_loan_period != '-1') {
       query.house_loan_period = house_loan_period;
     }
     if (car_loan_period && car_loan_period != '-1') {
@@ -138,6 +182,18 @@ Page({
 
     if (status && status != '-1') {
       query.status = status;
+    }
+
+    if (auth_user && auth_user != '-1') {
+      query.auth_user = auth_user;
+    }
+
+    if (social_security && social_security != '-1') {
+      query.social_security = social_security;
+    }
+
+    if (accumulation_funds && accumulation_funds != '-1') {
+      query.accumulation_funds = accumulation_funds;
     }
 
     if (search && search.length > 0) {

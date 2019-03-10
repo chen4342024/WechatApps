@@ -72,13 +72,13 @@ const businessLicenseTypeEnum = [
 ];
 
 const socialSecurityTypeEnum = [
-  { code: -1, text: "请选择" },
+  { code: -1, text: "请选择", label: "选择社保" },
   { code: 1, text: '无' },
   { code: 2, text: '有' },
 ];
 
 const accumulationFundsTypeEnum = [
-  { code: -1, text: "请选择" },
+  { code: -1, text: "请选择", label: "选择公积金" },
   { code: 1, text: '无' },
   { code: 2, text: '有' },
 ];

@@ -46,7 +46,7 @@
         </label>
         <text class="error-tip">{{validateMessage['card_number']}}</text>
       </view>
-      <view class='form-item J-form-address {{validateStatus["address"]}}'>
+      <view class='form-item J-form-company_address {{validateStatus["company_address"]}}'>
         <label>
           <text class='form-label'>工作单位</text>
           <input class='form-control' placeholder="请填写工作单位信息" value='{{company_address}}' data-name='company_address' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
@@ -64,6 +64,18 @@
         <label class=''>
           <text class='form-label'>备注</text>
           <input class='form-control' placeholder="请输入备注" value='{{remark}}' data-name='remark' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+        </label>
+      </view>
+      <view class='form-item J-form-remark '>
+        <label class=''>
+          <text class='form-label'>微粒贷额度</text>
+          <input class='form-control' placeholder="请输入微粒贷额度" value='{{wechat_loan}}' data-name='wechat_loan' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
+        </label>
+      </view>
+      <view class='form-item J-form-remark '>
+        <label class=''>
+          <text class='form-label'>借呗额度</text>
+          <input class='form-control' placeholder="请输入借呗额度" value='{{alipay_loan}}' data-name='alipay_loan' bindfocus="bindInputFocus" bindblur="bindInputBlur" bindinput="bindInputChange"></input>
         </label>
       </view>
       <view class='form-item J-form-remark '>

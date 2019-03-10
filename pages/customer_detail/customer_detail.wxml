@@ -39,6 +39,14 @@
       <text class='item-label'>备注</text>
       <text class='item-value muti-line'>{{customer.remark || ''}}</text>
     </view>
+    <view class='info-item '>
+      <text class='item-label'>微粒贷额度</text>
+      <text class='item-value muti-line'>{{customer.wechat_loan || ''}}</text>
+    </view>
+    <view class='info-item '>
+      <text class='item-label'>借呗额度</text>
+      <text class='item-value muti-line'>{{customer.alipay_loan || ''}}</text>
+    </view>
     <view class='info-item no-bottom-border'>
       <text class='item-label'>渠道编码</text>
       <text class='item-value muti-line'>{{customer.channel_number || ''}}</text>

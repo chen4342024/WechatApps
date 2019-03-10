@@ -73,6 +73,10 @@
 
 }
 
+.filter-bar-2{
+  top: 187rpx;
+}
+
 .form-picker-wrap{
   text-overflow: ellipsis;
   padding-right: 12rpx;
@@ -86,7 +90,7 @@
 
 .search-result {
   background: #fff;
-  margin-top: 200rpx;
+  margin-top: 288rpx;
 }
 
 .customer-item {

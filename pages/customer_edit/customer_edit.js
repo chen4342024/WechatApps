@@ -47,6 +47,8 @@ Page({
     company_address: '',
     phone: '',
     remark: '',
+    wechat_loan: '',
+    alipay_loan: '',
     house_loan_period: '',
     car_loan_period: '',
     policy_loan_period: '',
@@ -122,13 +124,13 @@ Page({
       businessLicenseTypes, socialSecurityTypes, accumulationFundsTypes
     } = this.data;
 
-    let { _id, name, card_number, company_address, phone, remark,
+    let { _id, name, card_number, company_address, phone, remark, wechat_loan, alipay_loan,
       house_loan_period, car_loan_period, policy_loan_period,
       house_pictures, car_pictures, policy_pictures, credit_pictures, status, lending_date, lending_period,
       business_license, social_security, accumulation_funds, channel_number
     } = customer;
     this.setData({
-      _id, name, card_number, company_address, phone, remark, channel_number,
+      _id, name, card_number, company_address, phone, remark, wechat_loan, alipay_loan, channel_number,
       house_loan_period, car_loan_period, policy_loan_period, social_security,
       accumulation_funds,
       channel_number,
@@ -435,6 +437,8 @@ Page({
       company_address: this.data.company_address,
       phone: this.data.phone,
       remark: this.data.remark,
+      wechat_loan: this.data.wechat_loan,
+      alipay_loan: this.data.alipay_loan,
       social_security: this.data.social_security,
       accumulation_funds: this.data.accumulation_funds,
       channel_number: this.data.channel_number,
