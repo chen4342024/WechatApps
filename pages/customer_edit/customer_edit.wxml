@@ -108,9 +108,27 @@
       </view>
       <view class='form-item J-form-house_loan_period'>
         <picker bindchange="bindPickerChange" data-range="accumulationFundsTypes" data-name="accumulation_funds" value="{{accumulationFundsTypesIndex}}" range="{{accumulationFundsTypes}}" range-key='text'>
-          <view class='form-picker-wrap no-bottom-border'>
+          <view class='form-picker-wrap '>
             <text class='form-label'>公积金</text>
             <text class='form-control'>{{ accumulationFundsTypes[accumulationFundsTypesIndex].label || accumulationFundsTypes[accumulationFundsTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
+      </view>
+      <view class='form-item J-form-house_loan_period'>
+        <picker bindchange="bindPickerChange" data-range="taxLevelTypes" data-name="tax_level" value="{{taxLevelTypesIndex}}" range="{{taxLevelTypes}}" range-key='text'>
+          <view class='form-picker-wrap '>
+            <text class='form-label'>税务评级</text>
+            <text class='form-control'>{{ taxLevelTypes[taxLevelTypesIndex].label || taxLevelTypes[taxLevelTypesIndex].text}} </text>
+            <text class='customer-icon iconfont icon-enter'></text>
+          </view>
+        </picker>
+      </view>
+      <view class='form-item J-form-house_loan_period'>
+        <picker bindchange="bindPickerChange" data-range="billLevelTypes" data-name="bill_level" value="{{billLevelTypesIndex}}" range="{{billLevelTypes}}" range-key='text'>
+          <view class='form-picker-wrap no-bottom-border'>
+            <text class='form-label'>开票额度</text>
+            <text class='form-control'>{{ billLevelTypes[billLevelTypesIndex].label || billLevelTypes[billLevelTypesIndex].text}} </text>
             <text class='customer-icon iconfont icon-enter'></text>
           </view>
         </picker>
@@ -125,7 +143,7 @@
         </view>
       </view>
       <view class='upload-container'>
-        <upload-item wx:for="{{credit_pictures}}" data-container='credit_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        <upload-item wx:key="{{index}}" wx:for="{{credit_pictures}}" data-container='credit_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
         </upload-item>
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='credit_pictures'></view>
       </view>
@@ -142,7 +160,7 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <upload-item wx:for="{{house_pictures}}" data-container='house_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        <upload-item wx:key="{{index}}" wx:for="{{house_pictures}}" data-container='house_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
         </upload-item>
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='house_pictures'></view>
       </view>
@@ -159,7 +177,7 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <upload-item wx:for="{{car_pictures}}" data-container='car_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        <upload-item wx:key="{{index}}" wx:for="{{car_pictures}}" data-container='car_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
         </upload-item>
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='car_pictures'></view>
       </view>
@@ -175,7 +193,7 @@
         </picker>
       </view>
       <view class='upload-container'>
-        <upload-item wx:for="{{policy_pictures}}" data-container='policy_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
+        <upload-item wx:key="{{index}}" wx:for="{{policy_pictures}}" data-container='policy_pictures' data-item="{{item}}" upload-item="{{item}}" bindonItemDelete="bindItemDelete" binditempreview="previewImage">
         </upload-item>
         <view class='upload-item upload-item-add' bindtap='uploadImage' data-container='policy_pictures'></view>
       </view>

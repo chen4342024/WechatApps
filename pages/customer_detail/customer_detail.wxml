@@ -61,9 +61,17 @@
       <text class='item-label'>社保</text>
       <text class='item-value muti-line'>{{customer.socialSecurityText || ''}}</text>
     </view>
-    <view class='info-item no-bottom-border'>
+    <view class='info-item'>
       <text class='item-label'>公积金</text>
       <text class='item-value muti-line'>{{customer.accumulationFundsText || ''}}</text>
+    </view>
+    <view class='info-item'>
+      <text class='item-label'>税务评级</text>
+      <text class='item-value muti-line'>{{customer.taxLevelText || ''}}</text>
+    </view>
+    <view class='info-item no-bottom-border'>
+      <text class='item-label'>开票额度</text>
+      <text class='item-value muti-line'>{{customer.billLevelText || ''}}</text>
     </view>
   </view>
   <view class='panel'>

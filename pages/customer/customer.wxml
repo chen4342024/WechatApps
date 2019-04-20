@@ -68,7 +68,7 @@
 
   </view>
   <view class='search-result'>
-    <navigator wx:for="{{customerList}}" url="/pages/customer_detail/customer_detail?id={{item._id}}" hover-class="navigator-hover">
+    <navigator wx:key="{{index}}" wx:for="{{customerList}}" url="/pages/customer_detail/customer_detail?id={{item._id}}" hover-class="navigator-hover">
       <view class="customer-item">
         <text class='customer-name'>{{item.name}}</text>
         <text class='customer-status'>{{item.statusText}}</text>

@@ -83,6 +83,24 @@ const accumulationFundsTypeEnum = [
   { code: 2, text: '有' },
 ];
 
+const taxLevelTypeEnum = [
+  { code: -1, text: "请选择", label: "选择税务评级" },
+  { code: 1, text: 'A' },
+  { code: 2, text: 'B' },
+  { code: 3, text: 'C' },
+  { code: 4, text: 'D' },
+  { code: 5, text: 'M' },
+  { code: 6, text: '无' },
+];
+
+
+const billLevelTypeEnum = [
+  { code: -1, text: "请选择", label: "选择开票额度" },
+  { code: 1, text: '100万以下' },
+  { code: 2, text: '100万-200万' },
+  { code: 2, text: '200万以上' },
+];
+
 function findByCode(code, data) {
   return data.filter((value) => {
     return value.code == code;
@@ -111,5 +129,7 @@ module.exports = {
   lendingPeriodTypesEnum,
   businessLicenseTypeEnum,
   socialSecurityTypeEnum,
-  accumulationFundsTypeEnum
+  accumulationFundsTypeEnum,
+  taxLevelTypeEnum,
+  billLevelTypeEnum
 };

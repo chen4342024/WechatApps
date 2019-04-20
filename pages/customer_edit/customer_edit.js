@@ -63,6 +63,8 @@ Page({
     accumulation_funds: '',
     channel_number: '',
     business_license: '',
+    tax_level: '',
+    bill_level: '',
 
     followStatus: globalData.followStatus,
     followStatusIndex: 0,
@@ -86,8 +88,18 @@ Page({
     socialSecurityTypes: globalData.socialSecurityTypeEnum,
     socialSecurityTypesIndex: 0,
 
+    // 公积金
     accumulationFundsTypes: globalData.accumulationFundsTypeEnum,
     accumulationFundsTypesIndex: 0,
+
+    // 税务级别
+    taxLevelTypes: globalData.taxLevelTypeEnum,
+    taxLevelTypesIndex: 0,
+    
+    // 开票额度
+    billLevelTypes: globalData.billLevelTypeEnum,
+    billLevelTypesIndex: 0,
+
 
     validateConfig: {},
     validateMessage: {},
@@ -121,18 +133,19 @@ Page({
     let {
       followStatus,
       houseTypes, policyTypes, carTypes, lendingPeriodTypes,
-      businessLicenseTypes, socialSecurityTypes, accumulationFundsTypes
+      businessLicenseTypes, socialSecurityTypes, accumulationFundsTypes,taxLevelTypes, billLevelTypes
     } = this.data;
 
-    let { _id, name, card_number, company_address, phone, remark, wechat_loan, alipay_loan,
+    let { _id, name, card_number, company_address, phone, remark = "", wechat_loan, alipay_loan,
       house_loan_period, car_loan_period, policy_loan_period,
       house_pictures, car_pictures, policy_pictures, credit_pictures, status, lending_date, lending_period,
-      business_license, social_security, accumulation_funds, channel_number
+      business_license, social_security, accumulation_funds, channel_number, tax_level = "", bill_level = "",
     } = customer;
     this.setData({
       _id, name, card_number, company_address, phone, remark, wechat_loan, alipay_loan, channel_number,
       house_loan_period, car_loan_period, policy_loan_period, social_security,
       accumulation_funds,
+      tax_level, bill_level,
       channel_number,
       business_license,
       status,
@@ -150,6 +163,8 @@ Page({
       businessLicenseTypesIndex: globalData.findIndex(business_license, businessLicenseTypes),
       socialSecurityTypesIndex: globalData.findIndex(social_security, socialSecurityTypes),
       accumulationFundsTypesIndex: globalData.findIndex(accumulation_funds, accumulationFundsTypes),
+      taxLevelTypesIndex: globalData.findIndex(tax_level, taxLevelTypes),
+      billLevelTypesIndex: globalData.findIndex(bill_level, billLevelTypes),
     });
   },
 
@@ -443,6 +458,8 @@ Page({
       accumulation_funds: this.data.accumulation_funds,
       channel_number: this.data.channel_number,
       business_license: this.data.business_license,
+      tax_level: this.data.tax_level,
+      bill_level: this.data.bill_level,
 
       house_loan_period: this.data.house_loan_period,
       car_loan_period: this.data.car_loan_period,

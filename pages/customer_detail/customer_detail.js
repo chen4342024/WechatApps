@@ -20,13 +20,16 @@ Page({
     businessLicenseTypes: globalData.businessLicenseTypeEnum,
     socialSecurityTypes: globalData.socialSecurityTypeEnum,
     accumulationFundsTypes: globalData.accumulationFundsTypeEnum,
+    taxLevelTypes: globalData.taxLevelTypeEnum,
+    billLevelTypes: globalData.billLevelTypeEnum,
   },
 
   mapCustomer: function (customer) {
     let {
       followStatus,
       houseTypes, policyTypes, carTypes, lendingPeriodTypes,
-      socialSecurityTypes, accumulationFundsTypes, businessLicenseTypes
+      socialSecurityTypes, accumulationFundsTypes, businessLicenseTypes, 
+      taxLevelTypes, billLevelTypes
      } = this.data;
     let getText = function (code, data) {
       let filterData = globalData.findByCode(code, data);
@@ -43,6 +46,8 @@ Page({
       socialSecurityText: getText(customer.social_security, socialSecurityTypes),
       accumulationFundsText: getText(customer.accumulation_funds, accumulationFundsTypes),
       businessLicenseText: getText(customer.business_license, businessLicenseTypes),
+      taxLevelText: getText(customer.tax_level, taxLevelTypes),
+      billLevelText: getText(customer.bill_level, billLevelTypes),
 
       creditPicturesUrl: this.getUrl(customer.credit_pictures),
       housePicturesUrl: this.getUrl(customer.house_pictures),
